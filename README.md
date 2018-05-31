@@ -5,7 +5,13 @@
 C++ Utilities to use for everyday projects.
 Fully tested on **Linux** and **Windows** x64 with C++17. Some libraries if not all, should work on MacOS.
 
-Each part can be compiled as a static library (or header-only for some) with its cmake.
+#### Compilation & Linking
+Each part can be compiled as a static library (or header-only for some) with its own CMakeFile.
+
+The __easiest way__ to have all the libraries included in your project is to :
+1. Add this repository as a git submodule of your project (`$ git submodule add https://github.com/theo-pnv/cpp-utils.git`)
+2. Add this line at the top of your root CMakeFile : `add_subdirectory(cpp-utils)`
+
 
 | Name     | Linking  | Description |
 |----------|----------|-------------|
