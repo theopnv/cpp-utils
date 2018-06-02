@@ -11,3 +11,5 @@ CTestTestfile.cmake
 .vs*
 .idea*
 Targets/*
+
+*.lib
