@@ -5,7 +5,7 @@
 #include <thread>
 #include "asio.hpp"
 #include "sole/sole.hpp"
-#include "typedefs.h"
+#include "tp_network.h"
 #include "GenericServer.h"
 
 namespace tp_network

@@ -4,7 +4,7 @@
 #include <memory>
 #include "asio.hpp"
 #include "Message.h"
-#include "typedefs.h"
+#include "tp_network.h"
 #include "PacketBuild.h"
 
 namespace tp_network

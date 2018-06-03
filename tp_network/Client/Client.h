@@ -4,7 +4,7 @@
 #include <iostream>
 #include <thread>
 #include "asio.hpp"
-#include "typedefs.h"
+#include "tp_network.h"
 #include "GenericClient.h"
 
 namespace tp_network

@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "asio.hpp"
-#include "typedefs.h"
+#include "tp_network.h"
 #include "Message.h"
 #include "PacketBuild.h"
 

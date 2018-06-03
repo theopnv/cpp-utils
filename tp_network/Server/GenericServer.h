@@ -3,7 +3,7 @@
 #include <asio.hpp>
 #include <iostream>
 #include <functional>
-#include "typedefs.h"
+#include "tp_network.h"
 #include "Session.h"
 
 namespace tp_network
