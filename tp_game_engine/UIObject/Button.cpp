@@ -10,10 +10,10 @@ namespace tp_game_engine
 
 	}
 
-	void Button::draw(Sptr<GEngine> ge)
+	void Button::draw(RendererSptr& renderer)
 	{
 		SDL_Rect	dest = { _pos.x(), _pos.y(), _size.w(), _size.h() };
-		SDL_RenderCopy(ge->_renderer.get(), _texture.get(), NULL, &dest);
+		SDL_RenderCopy(renderer.get(), _texture.get(), NULL, &dest);
 	}
 
 	bool Button::handleEvent(Sptr<SDL_Event> event)

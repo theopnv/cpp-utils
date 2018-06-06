@@ -17,7 +17,7 @@ namespace tp_game_engine
 		virtual			~IGObject() = default;
 
 		virtual bool	handleEvent(Sptr<SDL_Event> event) = 0;
-		virtual void	draw(Sptr<GEngine> ge) = 0;
+		virtual void	draw(RendererSptr& renderer) = 0;
 
 	};
 

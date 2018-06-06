@@ -14,7 +14,7 @@ namespace tp_game_engine
 		~Button() = default;
 
 		bool	handleEvent(Sptr<SDL_Event> event) override;
-		void	draw(Sptr<GEngine> ge) override;
+		void	draw(RendererSptr& renderer) override;
 
 	private:
 		Event<void(Sptr<AWidget>)>	_onClick;

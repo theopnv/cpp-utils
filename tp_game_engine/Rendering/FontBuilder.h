@@ -54,7 +54,8 @@ namespace tp_game_engine
 			auto fontInfo = FontInfo(Vector2<int>({ surface->w, surface->h }), texture);
 			
 			SDL_FreeSurface(surface);
-			
+			TTF_CloseFont(font_);
+
 			return fontInfo;
 		}
 

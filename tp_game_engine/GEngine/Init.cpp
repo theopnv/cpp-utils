@@ -62,4 +62,10 @@ namespace tp_game_engine
 		return true;
 	}
 
+	void GEngine::setEventFuncMapper(GEEventFuncMapper& evFM)
+	{
+		buildEventMapper();
+		_eventFuncMapper = evFM;
+	}
+
 }

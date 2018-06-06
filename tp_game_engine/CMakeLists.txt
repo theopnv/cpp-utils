@@ -37,6 +37,7 @@ set(SRC
 	
 	${GENGINE}/Init.cpp
 	${GENGINE}/StateManager.cpp
+	${GENGINE}/EventManager.cpp
 	${GENGINE}/GEngine.cpp
 	${GENGINE}/GEngine.h
 	${GENGINE}/GEngineException.h

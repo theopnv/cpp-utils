@@ -17,7 +17,6 @@ namespace tp_game_engine
 			virtual void	pause() = 0;
 			virtual void	resume() = 0;
 
-			virtual void	handleEvents() = 0;
 			virtual void	update() = 0;
 			virtual void	draw() = 0;
 

@@ -44,16 +44,6 @@ namespace tp_game_engine
 		}
 	}
 
-	void GEngine::handleEvents()
-	{
-		if (!_states.empty()) {
-			_states.top()->handleEvents();
-		}
-		else {
-			std::cerr << "Empty stack of states" << std::endl;
-		}
-	}
-
 	void GEngine::update()
 	{
 		_states.top()->update();

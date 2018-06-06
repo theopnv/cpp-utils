@@ -16,6 +16,7 @@
 #include "IGameState.h"
 #include "SdlPointer.h"
 #include "GEngineException.h"
+#include "event.h"
 
 namespace tp_game_engine
 {
@@ -26,7 +27,10 @@ namespace tp_game_engine
 	{
 
 	public:
-		GEngine(const std::string& winTitle, int width, int height);
+		GEngine(
+			const std::string& winTitle, 
+			int width, 
+			int height);
 		~GEngine();
 
 		bool start();
@@ -41,6 +45,9 @@ namespace tp_game_engine
 		void	update();
 		void	draw();
 
+		// Event Manager
+		void	setEventFuncMapper(GEEventFuncMapper& evFM);
+		
 		bool				_stop = false;
 		RendererSptr		_renderer;
 
@@ -55,6 +62,10 @@ namespace tp_game_engine
 		int					_height;
 
 		std::stack<Sptr<IGameState>>	_states;
+		GEEventFuncMapper				_eventFuncMapper;
+		GEEventMapper					_eventMapper;
+
+		void	buildEventMapper();
 	};
 
 }
