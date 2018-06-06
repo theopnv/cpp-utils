@@ -1,11 +1,11 @@
 #pragma once
 
-#include "AWidget.h"
+#include "AGObject.h"
 
 namespace tp_game_engine
 {
 
-	class Button : public AWidget
+	class Button : public AGObject
 	{
 
 	public: 
@@ -17,8 +17,10 @@ namespace tp_game_engine
 		void	draw(RendererSptr& renderer) override;
 
 	private:
-		Event<void(Sptr<AWidget>)>	_onClick;
-		Vector2<int>				_size;
+		Event<void(Sptr<AGObject>)>	_onClick;
+
+		TextureSptr					_texture;
+		Vector4<int>				_coord;
 	};
 
 }

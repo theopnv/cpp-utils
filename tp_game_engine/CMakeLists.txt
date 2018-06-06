@@ -15,18 +15,21 @@ message("${PROJECT_NAME} Output in ${CMAKE_OUTPUT_DIR}")
 ### Sources ###
 set(GENGINE GEngine)
 set(GAMESTATE GameState)
-set(UIOBJECT UIObject)
+set(GOBJECT GameObject)
 set(RENDERING Rendering)
 
 set(INCLUDE_DIRS
 	.
 	
 	Libraries/SDL/include
+	Libraries/SDL_IMAGE/include
 	Libraries/SDL_TTF/include
 	
 	${GENGINE}
 	${GAMESTATE}
-	${UIOBJECT}
+	${GOBJECT}
+	${GOBJECT}/Button
+	${GOBJECT}/Image
 	${RENDERING}
 )
 
@@ -48,10 +51,14 @@ set(SRC
 	${RENDERING}/Color.h
 	${RENDERING}/FontBuilder.h
 
-	${UIOBJECT}/Button.h
-	${UIOBJECT}/AWidget.h
-	${UIOBJECT}/Button.cpp
-	${UIOBJECT}/IGObject.h
+	${GOBJECT}/IGObject.h
+	${GOBJECT}/AGObject.h
+
+	${GOBJECT}/Button/Button.h
+	${GOBJECT}/Button/Button.cpp
+	${GOBJECT}/Image/Image.h
+	${GOBJECT}/Image/Image.cpp
+
 
 )
 
@@ -65,6 +72,7 @@ add_library(${PROJECT_NAME} STATIC ${SRC})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/SDL/lib/SDL2.lib)
+	target_link_libraries(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/SDL_IMAGE/lib/SDL2_image.lib)
 	target_link_libraries(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/SDL_TTF/lib/SDL2_ttf.lib)
 endif()
 
