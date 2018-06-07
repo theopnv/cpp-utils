@@ -1,9 +1,12 @@
+//  Created by Theo Penavaire on 05/20/2018
+//  Last Update on 06/07/2018 
+
 #include "Button.h"
 
-namespace tp_game_engine
+namespace neon_engine
 {
 
-	Button::Button(TextureSptr texture, Vector4<int>& coord, bool isEnabled) :
+	Button::Button(const TextureSptr& texture, Vector4<int>& coord, const bool isEnabled) :
 		AGObject(isEnabled),
 		_texture(texture),
 		_coord(coord)
@@ -21,7 +24,7 @@ namespace tp_game_engine
 				_coord.size.h()
 			};
 
-			SDL_RenderCopy(renderer.get(), _texture.get(), NULL, &dest);
+			SDL_RenderCopy(renderer.get(), _texture.get(), nullptr, &dest);
 		}
 	}
 

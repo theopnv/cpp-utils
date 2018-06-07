@@ -1,25 +1,42 @@
+//  Created by Theo Penavaire on 05/29/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
 #include "SdlPointer.h"
 #include "Color.h"
 #include "SDL_ttf.h"
-#include "GEngineException.h"
+#include "NeonException.h"
 #include "Vector.h"
+#include "SDL.h"
 
-namespace tp_game_engine
+namespace neon_engine
 {
 	
+	/**
+	 * \brief Information about font
+	 */
 	struct FontInfo
 	{
+		/**
+		 * \brief Width and Height of the font texture
+		 */
 		Vector2<int>	size;
+
+		/**
+		 * \brief Texture of the font
+		 */
 		TextureSptr		texture;
 
-		FontInfo(Vector2<int> size_, TextureSptr texture_) :
+		FontInfo(const Vector2<int> size_, TextureSptr texture_) :
 			size(size_),
 			texture(texture_)
 		{}
 	};
 
+	/**
+	 * \brief Load a TTF font and transform it into a SDL2 texture
+	 */
 	class FontBuilder
 	{
 
@@ -30,25 +47,25 @@ namespace tp_game_engine
 		static FontInfo		fontToTexture(
 			RendererSptr renderer,
 			const std::string& font,
-			int size,
-			Color color,
+			const int size,
+			const Color color,
 			const std::string& text)
 		{
 			TTF_Font	*font_ = TTF_OpenFont(font.c_str(), size);
 			if (!font_) {
-				throw GEngineException("Can' load the following font: " + font);
+				throw NeonException("Can' load the following font: " + font);
 			}
-			
-			ColorLevel	colorLevel = GameColors.at(color);
+
+			const auto colorLevel = GameColors.at(color);
 			SDL_Color	color_ = { colorLevel.r, colorLevel.g, colorLevel.b, colorLevel.a };
 			SDL_Surface	*surface = TTF_RenderText_Solid(font_, text.c_str(), color_);
 			if (!surface) {
-				throw GEngineException("Can' create a sprite for font: " + font + ". " + TTF_GetError());
+				throw NeonException("Can' create a sprite for font: " + font + ". " + TTF_GetError());
 			}
 
 			TextureSptr texture = TextureSptr(SDL_CreateTextureFromSurface(renderer.get(), surface));
 			if (!texture) {
-				throw GEngineException("Can't create a sprite for font: " + font + ". " + TTF_GetError());
+				throw NeonException("Can't create a sprite for font: " + font + ". " + TTF_GetError());
 			}
 			
 			auto fontInfo = FontInfo(Vector2<int>({ surface->w, surface->h }), texture);

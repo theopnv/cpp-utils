@@ -1,8 +1,15 @@
+//  Created by Theo Penavaire on 05/20/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
-namespace tp_game_engine
+namespace neon_engine
 {
 
+	/**
+	 * \brief Vector representing a coordinate in space (2D)
+	 * \tparam T 
+	 */
 	template <class T>
 	struct Vector2
 	{
@@ -32,6 +39,10 @@ namespace tp_game_engine
 
 	};
 
+	/**
+	 * \brief Vector representing coordinates and size (2D)
+	 * \tparam T 
+	 */
 	template <class T>
 	struct Vector4
 	{

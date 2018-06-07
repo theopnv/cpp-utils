@@ -1,3 +1,6 @@
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/07/2018 
+
 #include <iostream>
 #include "FSManager.h"
 
@@ -81,9 +84,6 @@ namespace tp_filesystem
 		switch (constant) {
 			case (constant::dynamic_lib):
 				return path.substr(path.find_last_of('.') + 1) == "dll";
-				break;
-			case (constant::php):
-				return path.substr(path.find_last_of('.') + 1) == "php";
 				break;
 		}
 		return false;

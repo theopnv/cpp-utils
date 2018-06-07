@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.9)
-project(tp_game_engine)
+project(neon_engine)
 set(CMAKE_CXX_STANDARD 17)
 
 ### Output directory ###
@@ -13,9 +13,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_OUTPUT_DIR})
 message("${PROJECT_NAME} Output in ${CMAKE_OUTPUT_DIR}")
 
 ### Sources ###
-set(GENGINE GEngine)
-set(GAMESTATE GameState)
-set(GOBJECT GameObject)
+set(CORE Core)
+set(GAMESTATE GState)
+set(GOBJECT GObject)
 set(RENDERING Rendering)
 
 set(INCLUDE_DIRS
@@ -25,7 +25,7 @@ set(INCLUDE_DIRS
 	Libraries/SDL_IMAGE/include
 	Libraries/SDL_TTF/include
 	
-	${GENGINE}
+	${CORE}
 	${GAMESTATE}
 	${GOBJECT}
 	${GOBJECT}/Button
@@ -35,15 +35,15 @@ set(INCLUDE_DIRS
 
 set(SRC
 
-	tp_game_engine.h
+	neon_engine.h
 	SdlPointer.h
 	
-	${GENGINE}/Init.cpp
-	${GENGINE}/StateManager.cpp
-	${GENGINE}/EventManager.cpp
-	${GENGINE}/GEngine.cpp
-	${GENGINE}/GEngine.h
-	${GENGINE}/GEngineException.h
+	${CORE}/Init.cpp
+	${CORE}/StateManager.cpp
+	${CORE}/EventManager.cpp
+	${CORE}/Core.cpp
+	${CORE}/Core.h
+	${CORE}/NeonException.h
 	
 	${GAMESTATE}/IGameState.h
 	

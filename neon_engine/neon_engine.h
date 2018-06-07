@@ -1,9 +1,12 @@
+//  Created by Theo Penavaire on 06/03/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
 #include <memory>
 #include <functional>
 
-namespace tp_game_engine
+namespace neon_engine
 {
 	template <class T>
 	using Sptr = std::shared_ptr<T>;

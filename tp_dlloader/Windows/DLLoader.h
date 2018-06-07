@@ -1,3 +1,6 @@
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/07/2018 
+
 #pragma once
 
 #include <iostream>
@@ -8,6 +11,10 @@
 
 namespace tp_dlloader
 {
+	/**
+	 * \brief Dynamic library loader
+	 * \tparam T The type of class to load
+	 */
 	template <class T>
 	class DLLoader : public IDLLoader<T>
 	{

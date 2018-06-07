@@ -1,6 +1,5 @@
-//
-// Created by theo on 12/25/17. (Merry Xmas)
-//
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/07/2018 
 
 #include <sys/stat.h>
 #include <unistd.h>
@@ -71,9 +70,6 @@ namespace tp_filesystem
 		switch (constant) {
 			case (constant::dynamic_lib):
 				return path.substr(path.find_last_of('.') + 1) == "so";
-				break;
-			case (constant::php):
-				return path.substr(path.find_last_of('.') + 1) == "php";
 				break;
 		}
 		return false;

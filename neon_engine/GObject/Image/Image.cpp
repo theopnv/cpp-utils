@@ -1,6 +1,10 @@
-#include "Image.h"
+//  Created by Theo Penavaire on 06/06/2018
+//  Last Update on 06/07/2018 
 
-namespace tp_game_engine
+#include "Image.h"
+#include "SDL_image.h"
+
+namespace neon_engine
 {
 
 	Image::Image(RendererSptr& renderer, 
@@ -12,13 +16,13 @@ namespace tp_game_engine
 	{
 		SDL_Surface	*surface;
 		if (!(surface = IMG_Load(file.c_str()))) {
-			throw GEngineException("Can't create a texture for image: " + file + ". " + SDL_GetError());
+			throw NeonException("Can't create a texture for image: " + file + ". " + SDL_GetError());
 		} else {
 			_coord.size.w(surface->w);
 			_coord.size.h(surface->h);
 			_texture = TextureSptr(SDL_CreateTextureFromSurface(renderer.get(), surface));
 			if (!_texture) {
-				throw GEngineException("Can't create a texture for image: " + file + ". " + SDL_GetError());
+				throw NeonException("Can't create a texture for image: " + file + ". " + SDL_GetError());
 			}
 		}
 	}
@@ -33,7 +37,7 @@ namespace tp_game_engine
 				_coord.size.h()
 			};
 
-			SDL_RenderCopy(renderer.get(), _texture.get(), NULL, &dest);
+			SDL_RenderCopy(renderer.get(), _texture.get(), nullptr, &dest);
 		}
 	}
 

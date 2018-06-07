@@ -1,9 +1,12 @@
-#include "GEngine.h"
+//  Created by Theo Penavaire on 05/29/2018
+//  Last Update on 06/08/2018 
 
-namespace tp_game_engine
+#include "Core.h"
+
+namespace neon_engine
 {
 
-	void GEngine::cleanup()
+	void Core::cleanupStates()
 	{
 		while (!_states.empty()) {
 			_states.top()->cleanup();
@@ -11,7 +14,7 @@ namespace tp_game_engine
 		}
 	}
 
-	void GEngine::changeState(Sptr<IGameState> state)
+	void Core::changeState(const Sptr<IGameState>& state)
 	{
 		if (!_states.empty()) {
 			_states.top()->cleanup();
@@ -19,20 +22,20 @@ namespace tp_game_engine
 		}
 
 		_states.push(state);
-		_states.top()->init(shared_from_this());
+		_states.top()->start(shared_from_this());
 	}
 
-	void GEngine::pushState(Sptr<IGameState> state)
+	void Core::pushState(const Sptr<IGameState>& state)
 	{
 		if (!_states.empty()) {
 			_states.top()->pause();
 		}
 
 		_states.push(state);
-		_states.top()->init(shared_from_this());
+		_states.top()->start(shared_from_this());
 	}
 
-	void GEngine::popState()
+	void Core::popState()
 	{
 		if (!_states.empty()) {
 			_states.top()->cleanup();
@@ -44,12 +47,12 @@ namespace tp_game_engine
 		}
 	}
 
-	void GEngine::update()
+	void Core::update()
 	{
 		_states.top()->update();
 	}
 
-	void GEngine::draw()
+	void Core::draw()
 	{
 		_states.top()->draw();
 	}

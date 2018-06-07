@@ -1,29 +1,29 @@
-#include "GEngine.h"
+//  Created by Theo Penavaire on 06/04/2018
+//  Last Update on 06/08/2018 
 
-namespace tp_game_engine
+#include "Core.h"
+
+namespace neon_engine
 {
 
-	// geevent_mapper_builder
-	namespace gmb
+	std::tuple<SDL_EventType, SDL_Keycode> 
+	Core::getTuple(SDL_EventType et, SDL_Keycode k)
 	{
-		std::tuple<SDL_EventType, SDL_Keycode> getTuple(SDL_EventType et, SDL_Keycode k)
-		{
-			return std::make_tuple(et, k);
-		}
-
-		std::pair<GEEventType, GEEvent>	getPair(SDL_EventType et, SDL_Keycode k, GEEvent e)
-		{
-			return std::make_pair(getTuple(et, k), e);
-		}
+		return std::make_tuple(et, k);
 	}
 
-	void GEngine::buildEventMapper()
+	std::pair<Core::NEventType, NEvent>
+	Core::getPair(const SDL_EventType et, const SDL_Keycode k, NEvent e)
 	{
-		_eventMapper.emplace(gmb::getPair(
-			SDL_EventType::SDL_QUIT, SDLK_ESCAPE, GEEvent::esc));
+		return std::make_pair(getTuple(et, k), e);
 	}
 
-	void GEngine::handleEvents()
+	void Core::buildEventMapper()
+	{
+		_eventMapper.emplace(getPair(SDL_QUIT, SDLK_ESCAPE, esc));
+	}
+
+	void Core::handleEvents()
 	{
 		if (!_states.empty()) {
 
@@ -31,8 +31,6 @@ namespace tp_game_engine
 				SDL_Event event;
 
 				if (SDL_PollEvent(&event)) {
-					GEEvent	geevent = undefined;
-					
 					for (auto& evMap : _eventMapper) {
 						auto[eventType, keycode] = evMap.first;
 

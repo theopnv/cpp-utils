@@ -1,10 +1,16 @@
+//  Created by Theo Penavaire on 05/29/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
 #include <map>
 
-namespace tp_game_engine
+namespace neon_engine
 {
 
+	/**
+	 * \brief Object holding a color (r, g, b, a)
+	 */
 	struct ColorLevel
 	{
 		int	r;
@@ -12,11 +18,14 @@ namespace tp_game_engine
 		int	b;
 		int	a;
 		ColorLevel() = default;
-		ColorLevel(int r_, int g_, int b_, int a_) :
+		ColorLevel(const int r_, const int g_, const int b_, const int a_) :
 			r(r_), g(g_), b(b_), a(a_)
 		{}
 	};
 
+	/**
+	 * \brief Defined colors
+	 */
 	enum Color
 	{
 		apricot,		// #e4a672 
@@ -38,6 +47,9 @@ namespace tp_game_engine
 
 	};
 
+	/*
+	 * Default game colors
+	 */
 	const std::map<Color, ColorLevel>	GameColors =
 	{
 		{ apricot, { 228, 166, 114, 255 } },

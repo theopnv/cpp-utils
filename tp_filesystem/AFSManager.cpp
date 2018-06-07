@@ -1,6 +1,5 @@
-//
-// Created by Theo on 2/15/2018.
-//
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/07/2018 
 
 #include "AFSManager.h"
 
