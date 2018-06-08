@@ -5,6 +5,8 @@
 C++ Utilities to use for everyday projects.
 Fully tested on **Linux** and **Windows** x64 with C++17. Some libraries if not all, should work on MacOS.
 
+The libraries, classes and methods are well documented in the code.
+
 #### Compilation & Linking
 Each part can be compiled as a static library (or header-only for some) with its own CMakeFile.
 

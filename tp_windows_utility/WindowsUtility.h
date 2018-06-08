@@ -5,5 +5,5 @@
 
 namespace tp_windows_utility
 {
-	const std::string GetLastMessageError();
+	std::string GetLastMessageError();
 }

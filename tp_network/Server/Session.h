@@ -1,6 +1,8 @@
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
-#include <iostream>
 #include "asio.hpp"
 #include "tp_network.h"
 #include "Message.h"
@@ -9,46 +11,48 @@
 namespace tp_network
 {
 
-	/*
-	 * A session represents a client connection.
+	/**
+	 * \brief A session represents a client connection.
 	 * It has a unique id (Boost UUID) for client identification.
-	 * Must be provided with :
-	 * 	- socket
-	 * 		--> The socket it must read from and write onto
-	 * 	- packet read callback
-	 * 		--> Will be called when a new packet is read on the socket
 	 */
 	class Session : public std::enable_shared_from_this<Session>
 	{
 
 	  public:
+		/**
+		 * \brief 
+		 * \param socket The socket it must read from and write onto
+		 * \param newMessageReadCallback Will be called when a new packet is read on the socket
+		 */
 		Session(tcp::socket socket,
-				Event<void (const std::string&, const std::string&)> newMessageReadCallback) :
+		        const Event<void (const std::string&, const std::string&)> newMessageReadCallback) :
 			_socket(std::move(socket)),
 			_newMessageReadCallback(newMessageReadCallback)
 		{
 		}
 
-		/*
-		 * Start the session.
+		/**
+		 * \brief Start the session.
 		 */
 		void start()
 		{
 			doReadHeader();
 		}
 
-		/*
-		 * Write a packet on the socket
+		/**
+		 * \brief Write a packet on the socket
+		 * \param packet Packet to send to the associated client
+		 * \return 
 		 */
 		bool write(std::string& packet)
 		{
 			std::size_t idx = 0;
 
 			// Header
-			int excedent = (int)packet.length() % Message::max_body_length == 0 ? 0 : 1;
-			int totalMsgInPacket = ((int)packet.length() / Message::max_body_length) + excedent;
+			const auto excedent = static_cast<int>(packet.length()) % Message::max_body_length == 0 ? 0 : 1;
+			const auto totalMsgInPacket = (static_cast<int>(packet.length()) / Message::max_body_length) + excedent;
 			Message header(totalMsgInPacket);
-			bool writeInProgress = !_writeQueue.empty();
+			const auto writeInProgress = !_writeQueue.empty();
 			_writeQueue.emplace_back(header);
 			if (!writeInProgress) {
 				doWrite();
@@ -59,7 +63,7 @@ namespace tp_network
 
 				Message body(packet.substr(idx, Message::max_body_length));
 
-				bool writeInProgress = !_writeQueue.empty();
+				auto writeInProgress = !_writeQueue.empty();
 				_writeQueue.emplace_back(body);
 				if (!writeInProgress) {
 					doWrite();
@@ -73,8 +77,8 @@ namespace tp_network
 
 		}
 
-		/*
-		 * Set the unique id of the session
+		/**
+		 * \brief Set the unique id of the session
 		 */
 		void setId(const std::string& id)
 		{
@@ -91,11 +95,14 @@ namespace tp_network
 		std::string			_id;
 		Event<void (const std::string&, const std::string&)>	_newMessageReadCallback;
 
+		/**
+		 * \brief Read revceived header
+		 */
 		void doReadHeader()
 		{
 			asio::async_read(_socket,
 							 asio::buffer(_currentMessage.getData(), Message::header_length),
-							 [this](std::error_code ec, std::size_t /*length*/)
+							 [this](const std::error_code ec, std::size_t /*length*/)
 							 {
 								 if (!ec && _currentMessage.decodeHeader())
 								 {
@@ -104,11 +111,14 @@ namespace tp_network
 							 });
 		}
 
+		/**
+		 * \brief After having read the header, read the content of the received message
+		 */
 		void doReadBody()
 		{
 			asio::async_read(_socket,
 							 asio::buffer(_currentMessage.getBody(), _currentMessage.getSizeHeaderInfo()),
-							 [this](std::error_code ec, std::size_t /*length*/)
+							 [this](const std::error_code ec, std::size_t /*length*/)
 							 {
 								 if (!ec)
 								 {
@@ -129,12 +139,15 @@ namespace tp_network
 							 });
 		}
 
+		/**
+		 * \brief Actually write on the socket
+		 */
 		void doWrite()
 		{
-			std::size_t msgSize = std::strlen(_writeQueue.front().getData()) + 1;
+			const auto msgSize = std::strlen(_writeQueue.front().getData()) + 1;
 			asio::async_write(_socket,
 							  asio::buffer(_writeQueue.front().getData(), msgSize),
-							  [this](std::error_code ec, std::size_t /*length*/) {
+							  [this](const std::error_code ec, std::size_t /*length*/) {
 								  if (!ec) {
 									  _writeQueue.pop_front();
 									  if (!_writeQueue.empty()) {

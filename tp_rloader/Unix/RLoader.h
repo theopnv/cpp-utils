@@ -1,6 +1,5 @@
-//
-// Created by theo on 1/24/18.
-//
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/08/2018 
 
 #pragma once
 
@@ -19,7 +18,7 @@ namespace tp_rloader
 		~RLoader() = default;
 		RLoader() = default;
 
-		static const std::string	getResourcesDir(const std::string& projectDir);
+		static std::string	getResourcesDir(const std::string& projectDir);
 
 	};
 }

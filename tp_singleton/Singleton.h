@@ -1,12 +1,20 @@
-//
-// Created by Theo on 1/17/2018.
-//
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/08/2018 
 
 #pragma once
+
+#include <memory>
 
 namespace tp_singleton
 {
 
+	template <class T>
+	using Sptr = std::shared_ptr<T>;
+
+	/**
+	 * \brief Singleton
+	 * \tparam T templated object
+	 */
 	template <class T>
 	class Singleton
 	{

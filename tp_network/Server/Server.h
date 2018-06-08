@@ -1,3 +1,6 @@
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
 #include <map>
@@ -11,24 +14,23 @@
 namespace tp_network
 {
 
-	/*
-	 * Server class
-	 * Should be started in a separated thread
-	 * Must be provided with :
-	 * 	- connection callback
-	 * 		--> Will be called when a new client just got accepted
-	 * 	- packet read callback
-	 * 		--> Will be called when a packet is read on the socket
-	 * 	- port
-	 * 		--> The port you want the server to listen onto
+	/**
+	 * \brief Server class
+	 * Should be started in a separated thread 
 	 */
 	class Server
 	{
 
 	  public:
-		Server(Event<void (const std::string&)> newConnectionCallbackExternal,
-			   Event<void (const std::string&, const std::string&)> newMessageReadCallback,
-			   unsigned short port) :
+		/**
+		 * \brief 
+		 * \param newConnectionCallbackExternal Will be called when a new client just got accepted
+		 * \param newMessageReadCallback Will be called when a packet is read on the socket
+		 * \param port The port you want the server to listen onto
+		 */
+		Server(const Event<void (const std::string&)> newConnectionCallbackExternal,
+		       const Event<void (const std::string&, const std::string&)> newMessageReadCallback,
+		       const unsigned short port) :
 			_newConnectionCallbackExternal(newConnectionCallbackExternal),
 			_newMessageReadCallback(newMessageReadCallback),
 			_port(port)
@@ -40,17 +42,17 @@ namespace tp_network
 			_networkThread.join();
 		}
 
-		/*
-		 * Start the server.
+		/**
+		 * \brief Start the server.
 		 */
 		void run()
 		{
 			try {
-				auto newConnectionCallbackInternal = std::bind(&Server::newConnectionCallbackInternal, this, std::placeholders::_1);
+				const auto newConnectionCallbackInternal = std::bind(&Server::newConnectionCallbackInternal, this, std::placeholders::_1);
 
 				asio::io_service ioService;
 
-				tcp::endpoint endpoint(tcp::v4(), _port);
+				const tcp::endpoint endpoint(tcp::v4(), _port);
 				auto server = GenericServer(
 					ioService,
 					endpoint,
@@ -64,11 +66,10 @@ namespace tp_network
 			}
 		}
 
-		/*
-		 * Send a message to a specific client
-		 * Parameters:
-		 *	- uuid: The client's Id the message is to be sent to
-		 *	- obj: The object to send. Must be serializable through the IJsonSerializable interface.
+		/**
+		 * \brief Send a message to a specific client
+		 * \param uuid The client's Id the message is to be sent to
+		 * \param packet The object to send. Must be serializable through the IJsonSerializable interface.
 		 */
 		void send(const std::string& uuid, std::string& packet)
 		{
@@ -88,8 +89,8 @@ namespace tp_network
 
 		void newConnectionCallbackInternal(SessionSP session)
 		{
-			sole::uuid uuid = sole::uuid0();
-			std::string id = uuid.str();
+			auto uuid = sole::uuid0();
+			auto id = uuid.str();
 
 			_clients.insert(std::make_pair(id, session));
 

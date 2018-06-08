@@ -1,3 +1,6 @@
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
 #include <cstdio>
@@ -10,8 +13,8 @@
 namespace tp_network
 {
 
-	/*
-	 * Structure:
+	/**
+	 * \brief Structure:
 	 *
 	 *   +------------+-----------+ +----------------+
 	 *   |	  Type    |	  Size    | |	   Data		 |
@@ -53,14 +56,14 @@ namespace tp_network
 
 		Message() {}
 
-		Message(int expectedMsgCount)
+		Message(const int expectedMsgCount)
 		{
 			setTypeHeaderInfo(MsgType::header);
 			// +1 because this message counts too (the header one)
 			init(std::to_string(expectedMsgCount + 1));
 		}
 
-		Message(const std::string& str)
+		explicit Message(const std::string& str)
 		{
 			setTypeHeaderInfo(MsgType::content);
 			init(str + "\0");
@@ -90,7 +93,7 @@ namespace tp_network
 			return _sizeHeaderInfo;
 		}
 
-		void setSizeHeaderInfo(std::size_t new_length)
+		void setSizeHeaderInfo(const std::size_t new_length)
 		{
 			_sizeHeaderInfo = new_length;
 			if (_sizeHeaderInfo > max_body_length + TRAILING_ZERO)
@@ -102,7 +105,7 @@ namespace tp_network
 			return _typeHeaderInfo;
 		}
 
-		void setTypeHeaderInfo(MsgType msgType)
+		void setTypeHeaderInfo(const MsgType msgType)
 		{
 			_typeHeaderInfo = msgType;
 		}
@@ -111,7 +114,7 @@ namespace tp_network
 		{
 			char type[header_part_length + TRAILING_ZERO] = "";
 			std::strncat(type, _data, header_part_length);
-			_typeHeaderInfo = (MsgType)std::atoi(type);
+			_typeHeaderInfo = static_cast<MsgType>(std::atoi(type));
 
 			char size[header_part_length + TRAILING_ZERO] = "";
 			std::strncat(size, _data + header_part_length, header_part_length);

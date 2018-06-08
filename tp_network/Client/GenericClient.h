@@ -1,7 +1,9 @@
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
 #include <deque>
-#include <memory>
 #include "asio.hpp"
 #include "Message.h"
 #include "tp_network.h"
@@ -9,19 +11,19 @@
 
 namespace tp_network
 {
-	/*
-	* Don't use this class to handle your connections, always use
-	* the upper-level "Client" class (Client.h) !
-	* Must be provided with :
-	* 	- ioService
-	* 		--> See boost Asio documentation for further information
-	* 	- newMessageReadCallback
-	* 		--> Will be called when a packet is read on the socket
-	*/
+	/**
+	 * \brief Don't use this class to handle your connections, always use
+	 * the upper-level "Client" class (Client.h) !
+	 */
 	class GenericClient
 	{
 
 	  public:
+		/**
+		 * \brief Constructor
+		 * \param ioService See boost Asio for further information
+		 * \param newMessageReadCallback Will be called when a packet is read on the socket
+		 */
 		GenericClient(asio::io_service& ioService,
 					  Event<void (const std::string&)> newMessageReadCallback) :
 			_ioService(ioService),
@@ -45,10 +47,10 @@ namespace tp_network
 			std::size_t idx = 0;
 
 			// Header
-			int excedent = (int)packet.length() % Message::max_body_length == 0 ? 0 : 1;
-			int totalMsgInPacket = ((int)packet.length() / Message::max_body_length) + excedent;
+			const auto excedent = static_cast<int>(packet.length()) % Message::max_body_length == 0 ? 0 : 1;
+			const auto totalMsgInPacket = (static_cast<int>(packet.length()) / Message::max_body_length) + excedent;
 			Message header(totalMsgInPacket);
-			bool writeInProgress = !_writeQueue.empty();
+			const auto writeInProgress = !_writeQueue.empty();
 			_writeQueue.emplace_back(header);
 			if (!writeInProgress) {
 				doWrite();
@@ -59,7 +61,7 @@ namespace tp_network
 
 				Message body(packet.substr(idx, Message::max_body_length));
 
-				bool writeInProgress = !_writeQueue.empty();
+				auto writeInProgress = !_writeQueue.empty();
 				_writeQueue.emplace_back(body);
 				if (!writeInProgress) {
 					doWrite();
@@ -101,10 +103,10 @@ namespace tp_network
 		void doConnect(tcp::resolver::iterator endpointIterator)
 		{
 			asio::async_connect(_socket, endpointIterator,
-				[this](std::error_code ec, tcp::resolver::iterator)
-			{
-				if (!ec) {
-					doReadHeader();
+				[this](const std::error_code ec, tcp::resolver::iterator)
+				{
+					if (!ec) {
+						doReadHeader();
 				}
 			});
 		}
@@ -113,7 +115,7 @@ namespace tp_network
 		{
 			asio::async_read(_socket,
 				asio::buffer(_currentMessage.getData(), Message::header_length),
-				[this](std::error_code ec, std::size_t /*length*/)
+				[this](const std::error_code ec, std::size_t /*length*/)
 			{
 				if (!ec && _currentMessage.decodeHeader()) {
 					doReadBody();
@@ -128,7 +130,7 @@ namespace tp_network
 		{
 			asio::async_read(_socket,
 				asio::buffer(_currentMessage.getBody(), _currentMessage.getSizeHeaderInfo()),
-				[this](std::error_code ec, std::size_t /* length */)
+				[this](const std::error_code ec, std::size_t /* length */)
 			{
 				if (!ec) {
 					if (_currentMessage.getTypeHeaderInfo() == Message::header) {
@@ -151,10 +153,10 @@ namespace tp_network
 
 		void doWrite()
 		{
-			std::size_t msgSize = std::strlen(_writeQueue.front().getData()) + 1;
+			const auto msgSize = std::strlen(_writeQueue.front().getData()) + 1;
 			asio::async_write(_socket,
 				asio::buffer(_writeQueue.front().getData(), msgSize),
-				[this](std::error_code ec, std::size_t /* length */)
+				[this](const std::error_code ec, std::size_t /* length */)
 			{
 				if (!ec) {
 					_writeQueue.pop_front();

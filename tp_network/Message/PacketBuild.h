@@ -1,3 +1,6 @@
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
 #include <string>
@@ -5,8 +8,8 @@
 namespace tp_network
 {
 
-		/*
-		* Packet related data for server and client classes.
+		/**
+		* \brief Packet related data for server and client classes.
 		* Useful to assemble/disassemble packets to/into messages queues.
 		*/
 		struct PacketBuild
@@ -15,7 +18,7 @@ namespace tp_network
 			std::string		_data;
 			int 			_currentMsgIdx;
 
-			PacketBuild(int expectedMsgCount) :
+			explicit PacketBuild(const int expectedMsgCount) :
 				_expectedMsgCount(expectedMsgCount),
 				_data(""),
 				_currentMsgIdx(0)

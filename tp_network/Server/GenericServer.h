@@ -1,3 +1,6 @@
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/08/2018 
+
 #pragma once
 
 #include <asio.hpp>
@@ -9,28 +12,26 @@
 namespace tp_network
 {
 
-	/*
-	 * This class is used to set the listener & acceptor on the port.
+	/**
+	 * \brief This class is used to set the listener & acceptor on the port.
 	 * Don't use this class to handle your connections, always use
 	 * the upper-level "Server" class (Server.h) !
-	 * Must be provided with :
-	 * 	- ioService
-	 * 		--> See boost Asio documentation for further information
-	 * 	- endpoint
-	 * 		--> See boost Asio documentation for further information
-	 * 	- connection callback
-	 * 		--> Will be called when a new client got accepted
-	 * 	- packet read callback
-	 * 		--> Will be called when a packet is read on the socket
 	 */
 	class GenericServer
 	{
 
 	  public:
+		/**
+		 * \brief 
+		 * \param ioService See boost Asio documentation for further information
+		 * \param endpoint See boost Asio documentation for further information
+		 * \param newConnectionCallback Will be called when a new client got accepted
+		 * \param newMessageReadCallback Will be called when a packet is read on the socket
+		 */
 		GenericServer(asio::io_service& ioService,
 					  const tcp::endpoint& endpoint,
-					  Event<void (SessionSP)> newConnectionCallback,
-					  Event<void (const std::string&, const std::string&)> newMessageReadCallback) :
+		              const Event<void (SessionSP)> newConnectionCallback,
+		              const Event<void (const std::string&, const std::string&)> newMessageReadCallback) :
 			_ioService(ioService),
 			_acceptor(ioService, endpoint),
 			_socket(ioService),
@@ -51,7 +52,7 @@ namespace tp_network
 		void doAccept()
 		{
 			_acceptor.async_accept(_socket,
-								   [this](std::error_code ec)
+								   [this](const std::error_code ec)
 								   {
 									   if (!ec)
 									   {

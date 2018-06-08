@@ -1,3 +1,6 @@
+//  Created by Theo Penavaire on 05/31/2018
+//  Last Update on 06/08/2018 
+
 #include "JsonSerializer.h"
 #include <sstream>
 #include <iostream>
@@ -5,7 +8,7 @@
 namespace tp_serializer
 {
 
-	bool JsonSerializer::serialize(Sptr<IJsonSerializable> obj, std::string& output)
+	bool JsonSerializer::serialize(const Sptr<IJsonSerializable>& obj, std::string& output)
 	{
 		if (!obj) {
 			return false;
@@ -21,7 +24,7 @@ namespace tp_serializer
 		return true;
 	}
 
-	bool JsonSerializer::deserialize(Sptr<IJsonSerializable> obj, std::string& input)
+	bool JsonSerializer::deserialize(const Sptr<IJsonSerializable>& obj, std::string& input)
 	{
 		if (!obj) {
 			return false;
