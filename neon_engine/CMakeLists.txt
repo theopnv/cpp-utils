@@ -47,6 +47,7 @@ set(SRC
 	${CORE}/NeonException.h
 	
 	${GAMESTATE}/IGameState.h
+	${GAMESTATE}/AGameState.h
 	
 	${RENDERING}/Vector.h
 	${RENDERING}/Color.h
