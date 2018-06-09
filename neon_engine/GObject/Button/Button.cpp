@@ -6,29 +6,39 @@
 namespace neon_engine
 {
 
-	Button::Button(const TextureSptr& texture, Vector4<int>& coord, const bool isEnabled) :
-		AGObject(isEnabled),
-		_texture(texture),
-		_coord(coord)
+	Button::Button(const Text& text, const Vector2<int>& pos, const bool isEnabled) :
+		AGObject(pos, isEnabled),
+		_text(text),
+		_size(text.getSize())
 	{
+		if (text.getAlignement() == Text::Alignement::right)
+		{
+			const int xOffset = _pos.x() - _size.w();
+			_text.setPos({ xOffset, _pos.y() });
+		}
+		else
+		{
+			_text.setPos({ _pos.x(), _pos.y() });
+		}
 
+		_pos = _text.getPos();
 	}
 
 	void Button::draw(RendererSptr& renderer)
 	{
 		if (_isEnabled) {
 			SDL_Rect	dest = { 
-				_coord.pos.x(), 
-				_coord.pos.y(), 
-				_coord.size.w(), 
-				_coord.size.h()
+				_pos.x(), 
+				_pos.y(), 
+				_size.w(), 
+				_size.h()
 			};
 
-			SDL_RenderCopy(renderer.get(), _texture.get(), nullptr, &dest);
+			_text.draw(renderer);
 		}
 	}
 
-	bool Button::handleEvent(Sptr<SDL_Event> event)
+	bool Button::handleEvent()
 	{
 		return true;
 	}

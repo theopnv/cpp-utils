@@ -22,6 +22,7 @@
 #include "SdlPointer.h"
 #include "NeonException.h"
 #include "event.h"
+#include "Vector.h"
 
 namespace neon_engine
 {
@@ -43,10 +44,16 @@ namespace neon_engine
 	{
 
 	public:
+		/**
+		 * \brief 
+		 * \param winTitle Title of the window
+		 * \param winSize Real size of the window
+		 * \param logicalWinSize Independant resolution for rendering
+		 */
 		Core(
-			const std::string& winTitle, 
-			int width, 
-			int height);
+			const std::string& winTitle,
+			const Vector2<int> winSize,
+			const Vector2<int> logicalWinSize);
 		~Core();
 
 		/**
@@ -110,8 +117,8 @@ namespace neon_engine
 		// Main window parameters
 		WindowSptr			_mainWindow;
 		std::string			_title;
-		int					_width;
-		int					_height;
+		Vector2<int>		_winSize;
+		Vector2<int>		_logicalWinSize;
 
 		std::stack<Sptr<IGameState>>	_states;
 		NEventFuncMapper				_eventFuncMapper;

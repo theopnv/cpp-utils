@@ -4,7 +4,6 @@
 #pragma once
 
 #include "neon_engine.h"
-#include "SDL.h"
 #include "Core.h"
 
 namespace neon_engine
@@ -19,7 +18,16 @@ namespace neon_engine
 	public:
 		virtual			~IGObject() = default;
 
-		virtual bool	handleEvent(Sptr<SDL_Event> event) = 0;
+		/**
+		 * \brief Handle every event related to the game object
+		 * \return true if operation succeeded 
+		 */
+		virtual bool	handleEvent() = 0;
+		
+		/**
+		 * \brief Draw the game object on screen
+		 * \param renderer Renderer's instance
+		 */
 		virtual void	draw(RendererSptr& renderer) = 0;
 
 	};

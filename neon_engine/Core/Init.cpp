@@ -9,11 +9,11 @@ namespace neon_engine
 
 	Core::Core(
 		const std::string& winTitle,
-		const int width,
-		const int height) :
+		const Vector2<int> winSize,
+		const Vector2<int> logicalWinSize) :
 		_title(winTitle),
-		_width(width),
-		_height(height)
+		_winSize(winSize),
+		_logicalWinSize(logicalWinSize)
 	{
 	}
 
@@ -39,11 +39,11 @@ namespace neon_engine
 			_title.c_str(),
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
-			_width,
-			_height,
+			_winSize.w(),
+			_winSize.h(),
 			SDL_WINDOW_SHOWN));
 		if (!_mainWindow) {
-			throw NeonException("Can't create the main window");
+			throw NeonException(SDL_GetError());
 			return false;
 		}
 
@@ -54,7 +54,15 @@ namespace neon_engine
 			SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC));
 		SDL_SetRenderDrawColor(_renderer.get(), 0, 0, 0, 255);
 		if (!_renderer) {
-			throw NeonException("Can't create the graphic renderer");
+			throw NeonException(SDL_GetError());
+		}
+
+		if (SDL_RenderSetLogicalSize(
+			_renderer.get(),
+			_logicalWinSize.w(),
+			_logicalWinSize.h()) != 0)
+		{
+			throw NeonException(SDL_GetError());
 		}
 		
 		// SDL_ttf

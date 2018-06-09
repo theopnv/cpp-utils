@@ -30,6 +30,7 @@ set(INCLUDE_DIRS
 	${GOBJECT}
 	${GOBJECT}/Button
 	${GOBJECT}/Image
+	${GOBJECT}/Text
 	${RENDERING}
 )
 
@@ -58,6 +59,8 @@ set(SRC
 	${GOBJECT}/Button/Button.cpp
 	${GOBJECT}/Image/Image.h
 	${GOBJECT}/Image/Image.cpp
+	${GOBJECT}/Text/Text.h
+	${GOBJECT}/Text/Text.cpp
 
 
 )
@@ -81,3 +84,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(${PROJECT_NAME} PUBLIC 
 	${INCLUDE_DIRS}
 	)
+
+	
+target_link_libraries(${PROJECT_NAME}
+)

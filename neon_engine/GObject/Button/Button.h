@@ -4,7 +4,7 @@
 #pragma once
 
 #include "AGObject.h"
-#include "Vector.h"
+#include "Text.h"
 
 namespace neon_engine
 {
@@ -18,17 +18,17 @@ namespace neon_engine
 
 	public: 
 		Button() = default;
-		Button(const TextureSptr& texture, Vector4<int>& pos, bool isEnabled = true);
+		Button(const Text& text, const Vector2<int>& pos, bool isEnabled = true);
 		~Button() = default;
 
-		bool	handleEvent(Sptr<SDL_Event> event) override;
+		bool	handleEvent() override;
 		void	draw(RendererSptr& renderer) override;
 
 	private:
 		Event<void(Sptr<AGObject>)>	_onClick;
 
-		TextureSptr					_texture;
-		Vector4<int>				_coord;
+		Text						_text;
+		Vector2<int>				_size;
 	};
 
 }

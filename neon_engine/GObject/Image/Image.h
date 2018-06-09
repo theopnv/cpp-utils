@@ -19,16 +19,16 @@ namespace neon_engine
 		Image() = default;
 		Image(RendererSptr& renderer,
 			const std::string& file, 
-			Vector4<int>& pos, 
+			Vector4<int>& coord, 
 			bool isEnabled = true);
 		~Image() = default;
 
-		bool	handleEvent(Sptr<SDL_Event> event) override;
+		bool	handleEvent() override;
 		void	draw(RendererSptr& renderer) override;
 
 	private:
 		TextureSptr					_texture;
-		Vector4<int>				_coord;
+		Vector2<int>				_size;
 	};
 
 }

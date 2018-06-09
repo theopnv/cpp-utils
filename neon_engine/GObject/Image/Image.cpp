@@ -11,15 +11,15 @@ namespace neon_engine
 		const std::string& file, 
 		Vector4<int>& coord, 
 		bool isEnabled) :
-			AGObject(isEnabled),
-			_coord(coord)
+			AGObject(coord.pos, isEnabled),
+			_size(coord.size)
 	{
 		SDL_Surface	*surface;
 		if (!(surface = IMG_Load(file.c_str()))) {
 			throw NeonException("Can't create a texture for image: " + file + ". " + SDL_GetError());
 		} else {
-			_coord.size.w(surface->w);
-			_coord.size.h(surface->h);
+			_size.w(surface->w);
+			_size.h(surface->h);
 			_texture = TextureSptr(SDL_CreateTextureFromSurface(renderer.get(), surface));
 			if (!_texture) {
 				throw NeonException("Can't create a texture for image: " + file + ". " + SDL_GetError());
@@ -31,17 +31,17 @@ namespace neon_engine
 	{
 		if (_isEnabled) {
 			SDL_Rect	dest = {
-				_coord.pos.x(), 
-				_coord.pos.y(), 
-				_coord.size.w(), 
-				_coord.size.h()
+				_pos.x(), 
+				_pos.y(), 
+				_size.w(), 
+				_size.h()
 			};
 
 			SDL_RenderCopy(renderer.get(), _texture.get(), nullptr, &dest);
 		}
 	}
 
-	bool Image::handleEvent(Sptr<SDL_Event> event)
+	bool Image::handleEvent()
 	{
 		return true;
 	}

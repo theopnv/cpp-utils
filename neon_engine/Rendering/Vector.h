@@ -14,19 +14,19 @@ namespace neon_engine
 	struct Vector2
 	{
 		// For x and y (size)
-		T x() { return a; }
-		void x(T x) { a = x; }
-		T y() { return b; }
-		void y(T y) { b = y; }
+		T x() const { return a; }
+		void x(const T x) { a = x; }
+		T y() const { return b; }
+		void y(const T y) { b = y; }
 
 		// For width and height (pos)
-		T w() { return a; }
-		void w(T w) { a = w; }
-		T h() { return b; }
-		void h(T h) { b = h; }
+		T w() const { return a; }
+		void w(const T w) { a = w; }
+		T h() const { return b; }
+		void h(const T h) { b = h; }
 
 		Vector2() = default;
-		Vector2(T a_, T b_) : a(a_), b(b_) {}
+		Vector2(const T a_, const T b_) : a(a_), b(b_) {}
 
 		bool	operator==(const Vector2& other)
 		{
@@ -50,11 +50,11 @@ namespace neon_engine
 		Vector2<T>		size;
 
 		Vector4() = default;
-		Vector4(Vector2<T> pos_, Vector2<T> size_) :
+		Vector4(const Vector2<T> pos_, const Vector2<T> size_) :
 			pos(pos_),
 			size(size_)
 		{}
-		Vector4(T x, T y, T w, T h) :
+		Vector4(const T x, const T y, const T w, const T h) :
 			pos({ x, y }),
 			size({ w, h })
 		{}

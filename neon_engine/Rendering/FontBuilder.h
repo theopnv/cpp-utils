@@ -28,6 +28,8 @@ namespace neon_engine
 		 */
 		TextureSptr		texture;
 
+		FontInfo() = default;
+		~FontInfo() = default;
 		FontInfo(const Vector2<int> size_, TextureSptr texture_) :
 			size(size_),
 			texture(texture_)
