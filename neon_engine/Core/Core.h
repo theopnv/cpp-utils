@@ -126,16 +126,23 @@ namespace neon_engine
 
 		/**
 		* \brief Main event loop. Interface with low-level events (SDL2).
+		* There are 2 possible situations after an event is triggered : 
+		* 1. On specified events (in _eventFuncMapper), it calls a callback with the event data.
+		* For example, onEscape() when SDL_QUIT is triggered.
+		* 2. It also returns its event to pass it to this->update(NEvent& event). This behaviour allows
+		* update() to pass the event data to game states. The current state can then dispatch event data
+		* to every game object that may interfere with it.
+		* For example, it dispatches the event "mouse_click", that may be used by Buttons game objects.
 		*/
-		void	handleEvents();
+		NEvent	handleEvents();
 
 		/**
-		* \brief Call the upper state and update it
+		* \brief Call the upper state in the states stack and update it with current event data.
 		*/
-		void	update();
+		void	update(NEvent& event);
 
 		/**
-		 * \brief Call the upper state and render it
+		 * \brief Call the upper state in the states stack and render it
 		 */
 		void	draw();
 

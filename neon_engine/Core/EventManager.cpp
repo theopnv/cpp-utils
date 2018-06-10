@@ -20,10 +20,11 @@ namespace neon_engine
 
 	void Core::buildEventMapper()
 	{
-		_eventMapper.emplace(getPair(SDL_QUIT, SDLK_ESCAPE, esc));
+		_eventMapper.emplace(getPair(SDL_QUIT, SDLK_ESCAPE, NEvent(esc)));
+		_eventMapper.emplace(getPair(SDL_MOUSEBUTTONDOWN, SDLK_UNKNOWN, NEvent(mouse_click)));
 	}
 
-	void Core::handleEvents()
+	NEvent Core::handleEvents()
 	{
 		if (!_states.empty()) {
 
@@ -35,14 +36,23 @@ namespace neon_engine
 						auto[eventType, keycode] = evMap.first;
 
 						if (event.type == eventType) {
-							_eventFuncMapper.at(evMap.second)();
-							return;
+							if (eventType == SDL_MOUSEBUTTONDOWN) {
+								evMap.second.pos = { event.button.x, event.button.y };
+							}
+							try {
+								_eventFuncMapper.at(evMap.second.type)(evMap.second);
+							} catch (const std::out_of_range&){
+								return evMap.second;
+							}
 						}
 
 						if (event.type == SDL_KEYDOWN
 							&& event.key.keysym.sym == keycode) {
-							_eventFuncMapper.at(evMap.second)();
-							return;
+							try {
+								_eventFuncMapper.at(evMap.second.type)(evMap.second);
+							} catch (const std::out_of_range&){
+								return evMap.second;
+							}
 						}
 					}
 				}
@@ -54,6 +64,8 @@ namespace neon_engine
 		else {
 			std::cerr << "Empty stack of states" << std::endl;
 		}
+
+		return NEvent();
 	}
 
 }

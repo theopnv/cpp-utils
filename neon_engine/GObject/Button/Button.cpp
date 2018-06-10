@@ -6,14 +6,15 @@
 namespace neon_engine
 {
 
-	Button::Button(const Text& text, const Vector2<int>& pos, const bool isEnabled) :
+	Button::Button(const Text& text, const Vector2<int>& pos, Event<void ()> onClick, const bool isEnabled) :
 		AGObject(pos, isEnabled),
 		_text(text),
-		_size(text.getSize())
+		_size(text.getSize()),
+		_onClick(onClick)
 	{
 		if (text.getAlignement() == Text::Alignement::right)
 		{
-			const int xOffset = _pos.x() - _size.w();
+			const auto xOffset = _pos.x() - _size.w();
 			_text.setPos({ xOffset, _pos.y() });
 		}
 		else
@@ -38,8 +39,12 @@ namespace neon_engine
 		}
 	}
 
-	bool Button::handleEvent()
+	bool Button::update(NEvent& event)
 	{
+		if (event.pos.x() > _pos.x() && event.pos.x() < _pos.x() + _size.w()
+			&& event.pos.y() > _pos.y() && event.pos.y() < _pos.y() + _size.y()){
+			_onClick();
+		}
 		return true;
 	}
 

@@ -23,7 +23,7 @@ namespace neon_engine
 			bool isEnabled = true);
 		~Image() = default;
 
-		bool	handleEvent() override;
+		bool	update(NEvent& event) override;
 		void	draw(RendererSptr& renderer) override;
 
 	private:

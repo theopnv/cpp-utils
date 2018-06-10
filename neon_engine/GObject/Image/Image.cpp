@@ -41,7 +41,7 @@ namespace neon_engine
 		}
 	}
 
-	bool Image::handleEvent()
+	bool Image::update(NEvent& event)
 	{
 		return true;
 	}

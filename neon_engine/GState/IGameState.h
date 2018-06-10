@@ -4,6 +4,7 @@
 #pragma once
 
 #include "neon_engine.h"
+#include "event.h"
 
 namespace neon_engine
 {
@@ -48,9 +49,10 @@ namespace neon_engine
 
 			/**
 			 * \brief Called once per loop.
+			 * \param event Current event's data
 			 * Handle the events.
 			 */
-			virtual void	update() = 0;
+			virtual void	update(NEvent& event) = 0;
 
 			/**
 			 * \brief Render the state on screen.

@@ -47,9 +47,9 @@ namespace neon_engine
 		}
 	}
 
-	void Core::update()
+	void Core::update(NEvent& event)
 	{
-		_states.top()->update();
+		_states.top()->update(event);
 	}
 
 	void Core::draw()

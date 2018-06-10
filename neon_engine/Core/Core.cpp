@@ -14,8 +14,8 @@ namespace neon_engine
 				std::cerr << SDL_GetError() << std::endl;
 			}
 
-			handleEvents();
-			update();
+			auto event = handleEvents();
+			update(event);
 			draw();
 
 			SDL_RenderPresent(_renderer.get());

@@ -19,10 +19,11 @@ namespace neon_engine
 		virtual			~IGObject() = default;
 
 		/**
-		 * \brief Handle every event related to the game object
+		 * \brief Update state of the game object relatively to events
+		 * \param event Data for event that just occured
 		 * \return true if operation succeeded 
 		 */
-		virtual bool	handleEvent() = 0;
+		virtual bool	update(NEvent& event) = 0;
 		
 		/**
 		 * \brief Draw the game object on screen

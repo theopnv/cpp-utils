@@ -19,7 +19,7 @@ namespace neon_engine
 		std::vector<Sptr<IGObject>>	_gameObjects;
 		NEventFuncMapper			_eventFuncMapper;
 
-		virtual void setEvenFuncMapper() = 0;
+		virtual void setEventFuncMapper() = 0;
 	};
 
 }

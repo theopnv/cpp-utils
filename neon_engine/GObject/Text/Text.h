@@ -52,7 +52,7 @@ namespace neon_engine
 		~Text() = default;
 
 		void	draw(RendererSptr& renderer) override;
-		bool	handleEvent() override;
+		bool	update(NEvent& event) override;
 
 		/**
 		 * \brief Getter for the text's texture size.

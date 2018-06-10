@@ -38,7 +38,7 @@ namespace neon_engine
 		}
 	}
 
-	bool Text::handleEvent()
+	bool Text::update(NEvent& event)
 	{
 		return true;
 	}
