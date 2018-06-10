@@ -12,40 +12,47 @@ namespace neon_engine
 		const Color fontColor,
 		const std::string& text,
 		const Alignement align,
-		const Vector2<int> pos,
+		const Vector4<int>& coord,
 		const bool isEnabled) :
-			AGObject(pos, isEnabled),
+			AGObject(coord, isEnabled),
 			_alignement(align)
 	{
-		_fontInfo = FontBuilder::fontToTexture(
+		auto fontInfo = FontBuilder::fontToTexture(
 			renderer,
 			font,
 			fontSize,
 			fontColor,
 			text);
+
+		setSize(fontInfo.size);
+		_texture = fontInfo.texture;
+
+		if (getAlignement() == Text::Alignement::right)
+		{
+			const auto xOffset = _coord.pos.x() - _coord.size.w();
+			setPos({ xOffset, _coord.pos.y() });
+		}
+		else
+		{
+			setPos({ _coord.pos.x(), _coord.pos.y() });
+		}
 	}
 	
 	void Text::draw(RendererSptr& renderer)
 	{
 		if (_isEnabled) {
 			SDL_Rect	dest = {
-				_pos.x(),
-				_pos.y(),
-				_fontInfo.size.w(),
-				_fontInfo.size.h()
+				_coord.pos.x(),
+				_coord.pos.y(),
+				_coord.size.w(),
+				_coord.size.h()
 			};
-			SDL_RenderCopy(renderer.get(), _fontInfo.texture.get(), nullptr, &dest);
+			SDL_RenderCopy(renderer.get(), _texture.get(), nullptr, &dest);
 		}
 	}
 
-	bool Text::update(NEvent& event)
+	void Text::update(NEvent& event)
 	{
-		return true;
-	}
-
-	Vector2<int> Text::getSize() const
-	{
-		return {_fontInfo.size.w(), _fontInfo.size.h() };
 	}
 
 	Text::Alignement Text::getAlignement() const

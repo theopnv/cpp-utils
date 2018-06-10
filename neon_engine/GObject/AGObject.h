@@ -16,42 +16,54 @@ namespace neon_engine
 	{
 
 	public:
-		AGObject(const Vector2<int>& pos, const bool isEnabled = true) :
-			_pos(pos),
-			_isEnabled(isEnabled)
+		AGObject() = default;
+		explicit AGObject(const Vector4<int>& coord, const bool isEnabled = true) :
+			_isEnabled(isEnabled),
+			_hasFocus(false),
+			_coord(coord)
 		{}
 		virtual ~AGObject() = default;
 
-		/**
-		 * \brief Enable rendering and interaction for the game object
-		 * \param e boolean
-		 */
-		void			setIsEnabled(const bool e)
+		void			setIsEnabled(const bool e) override
 		{
 			_isEnabled = e;
 		}
 
-		/**
-		 * \brief Getter for the position
-		 * \return Position of the game object
-		 */
-		Vector2<int>	getPos() const
+		Vector2<int>	getPos() const override
 		{
-			return _pos;
+			return _coord.pos;
 		}
 
-		/**
-		 * \brief Setter for the position
-		 * \param pos New position of the game object
-		 */
-		void			setPos(const Vector2<int> pos)
+		void			setPos(const Vector2<int> pos) override
 		{
-			_pos = pos;
+			_coord.pos = pos;
+		}
+		
+		Vector2<int>	getSize() const override
+		{
+			return _coord.size;
+		}
+
+		void			setSize(const Vector2<int> size) override
+		{
+			_coord.size = size;
+		}
+
+		void			setHasFocus(const bool hasFocus) override
+		{
+			_hasFocus = hasFocus;
+		}
+
+		bool			getHasFocus() const override
+		{
+			return _hasFocus;
 		}
 
 	protected:
-		Vector2<int>	_pos;
 		bool			_isEnabled;
+		bool			_hasFocus;
+
+		Vector4<int>	_coord;
 	};
 
 }

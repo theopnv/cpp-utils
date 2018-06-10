@@ -6,46 +6,41 @@
 namespace neon_engine
 {
 
-	Button::Button(const Text& text, const Vector2<int>& pos, Event<void ()> onClick, const bool isEnabled) :
-		AGObject(pos, isEnabled),
-		_text(text),
-		_size(text.getSize()),
-		_onClick(onClick)
+	Button::Button(
+		const Text& text, 
+		const Vector4<int>& coord, 
+		Event<void ()> onClick, 
+		const bool isEnabled) :
+		AGObject(coord, isEnabled),
+		_onClick(onClick),
+		_text(text)
 	{
-		if (text.getAlignement() == Text::Alignement::right)
-		{
-			const auto xOffset = _pos.x() - _size.w();
-			_text.setPos({ xOffset, _pos.y() });
-		}
-		else
-		{
-			_text.setPos({ _pos.x(), _pos.y() });
-		}
-
-		_pos = _text.getPos();
+		setSize(text.getSize());
+		_text.setPos(getPos());
 	}
 
 	void Button::draw(RendererSptr& renderer)
 	{
 		if (_isEnabled) {
 			SDL_Rect	dest = { 
-				_pos.x(), 
-				_pos.y(), 
-				_size.w(), 
-				_size.h()
+				_coord.pos.x(), 
+				_coord.pos.y(), 
+				_coord.size.w(), 
+				_coord.size.h()
 			};
 
 			_text.draw(renderer);
 		}
 	}
 
-	bool Button::update(NEvent& event)
+	void Button::update(NEvent& event)
 	{
-		if (event.pos.x() > _pos.x() && event.pos.x() < _pos.x() + _size.w()
-			&& event.pos.y() > _pos.y() && event.pos.y() < _pos.y() + _size.y()){
+		if (event.pos.x() > _coord.pos.x() 
+			&& event.pos.x() < _coord.pos.x() + _coord.size.w()
+			&& event.pos.y() > _coord.pos.y() 
+			&& event.pos.y() < _coord.pos.y() + _coord.size.h()){
 			_onClick();
 		}
-		return true;
 	}
 
 }

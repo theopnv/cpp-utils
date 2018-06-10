@@ -23,12 +23,21 @@ namespace neon_engine
 			bool isEnabled = true);
 		~Image() = default;
 
-		bool	update(NEvent& event) override;
+		/**
+		 * \brief Comparison of images based on file path, position and size.
+		 * May not be ultra accurate, so see later if this can be optimized.
+		 * \param other Image to compare 
+		 * \return true if images are the same
+		 */
+		bool operator==(const Image& other) const;
+
+		void	update(NEvent& event) override;
 		void	draw(RendererSptr& renderer) override;
 
 	private:
-		TextureSptr					_texture;
-		Vector2<int>				_size;
+		TextureSptr		_texture;
+
+		std::string		_file;
 	};
 
 }

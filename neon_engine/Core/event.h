@@ -46,10 +46,18 @@ namespace neon_engine
 		 */
 		Vector2<int>	pos;
 
+		/**
+		 * \brief Name of the key if relevant (e.g. "A" for SDLK_A)
+		 * Empty string if it is not relevant.
+		 */
+		std::string		keyName;
+
 		~NEvent() = default;
-		explicit NEvent(NEventType t = undefined, 
-			Vector2<int> p = Vector2<int>({-1, -1})) : 
-			type(t), pos(p)
+		explicit NEvent(
+			NEventType t = undefined, 
+			Vector2<int> p = Vector2<int>({-1, -1}),
+			std::string kn = "") : 
+			type(t), pos(p), keyName(kn)
 		{}
 	};
 

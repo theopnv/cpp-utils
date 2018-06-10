@@ -31,6 +31,7 @@ set(INCLUDE_DIRS
 	${GOBJECT}/Button
 	${GOBJECT}/Image
 	${GOBJECT}/Text
+	${GOBJECT}/TextInput
 	${RENDERING}
 )
 
@@ -62,6 +63,8 @@ set(SRC
 	${GOBJECT}/Image/Image.cpp
 	${GOBJECT}/Text/Text.h
 	${GOBJECT}/Text/Text.cpp
+	${GOBJECT}/TextInput/TextInput.h
+	${GOBJECT}/TextInput/TextInput.cpp
 
 
 )

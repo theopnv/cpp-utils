@@ -38,7 +38,7 @@ namespace neon_engine
 		 * \param fontColor Color of the text
 		 * \param text Text to display
 		 * \param align Alignement of the text
-		 * \param pos Position of the text
+		 * \param coord Coordinates of the text
 		 * \param isEnabled Active the game object
 		 */
 		Text(const RendererSptr& renderer,
@@ -47,20 +47,12 @@ namespace neon_engine
 			Color fontColor,
 			const std::string& text,
 			Alignement align,
-			const Vector2<int> pos = { 0, 0 },
+			const Vector4<int>& coord = { 0, 0, 0, 0 },
 			bool isEnabled = true);
 		~Text() = default;
 
 		void	draw(RendererSptr& renderer) override;
-		bool	update(NEvent& event) override;
-
-		/**
-		 * \brief Getter for the text's texture size.
-		 * Can be useful if the text is to be included in another game object
-		 * and this game object needs to adapt its size relatively to the text.
-		 * \return Size of the texture of the text
-		 */
-		Vector2<int>	getSize() const;
+		void	update(NEvent& event) override;
 
 		/**
 		 * \brief Getter for the alignement.
@@ -72,7 +64,7 @@ namespace neon_engine
 
 	private:
 		Alignement		_alignement;
-		FontInfo		_fontInfo;
+		TextureSptr		_texture;
 	};
 
 }

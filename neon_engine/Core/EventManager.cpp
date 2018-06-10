@@ -49,6 +49,7 @@ namespace neon_engine
 						if (event.type == SDL_KEYDOWN
 							&& event.key.keysym.sym == keycode) {
 							try {
+								evMap.second.keyName = SDL_GetKeyName(keycode);
 								_eventFuncMapper.at(evMap.second.type)(evMap.second);
 							} catch (const std::out_of_range&){
 								return evMap.second;

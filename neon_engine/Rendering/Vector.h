@@ -28,7 +28,7 @@ namespace neon_engine
 		Vector2() = default;
 		Vector2(const T a_, const T b_) : a(a_), b(b_) {}
 
-		bool	operator==(const Vector2& other)
+		bool	operator==(const Vector2& other) const 
 		{
 			return this->a == other.a && this->b == other.b;
 		}
@@ -54,12 +54,12 @@ namespace neon_engine
 			pos(pos_),
 			size(size_)
 		{}
-		Vector4(const T x, const T y, const T w, const T h) :
+		Vector4(const T x, const T y, const T w = 0, const T h = 0) :
 			pos({ x, y }),
 			size({ w, h })
 		{}
 
-		bool operator==(const Vector4& other) {
+		bool operator==(const Vector4& other) const {
 			return other.pos == this->pos && other.size == this->size;
 		}
 	};
