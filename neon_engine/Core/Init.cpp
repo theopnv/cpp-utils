@@ -23,6 +23,7 @@ namespace neon_engine
 			SDL_Quit();
 			TTF_Quit();
 			IMG_Quit();
+			SDL_StopTextInput();
 		}
 	}
 
@@ -46,6 +47,7 @@ namespace neon_engine
 			throw NeonException(SDL_GetError());
 			return false;
 		}
+		SDL_StartTextInput();
 
 		// Renderer
 		_renderer = RendererSptr(SDL_CreateRenderer(

@@ -22,6 +22,7 @@ namespace neon_engine
 	{
 		_eventMapper.emplace(getPair(SDL_QUIT, SDLK_ESCAPE, NEvent(esc)));
 		_eventMapper.emplace(getPair(SDL_MOUSEBUTTONDOWN, SDLK_UNKNOWN, NEvent(mouse_click)));
+		_eventMapper.emplace(getPair(SDL_FIRSTEVENT, SDLK_BACKSPACE, NEvent(backspace)));
 	}
 
 	NEvent Core::handleEvents()
@@ -49,12 +50,19 @@ namespace neon_engine
 						if (event.type == SDL_KEYDOWN
 							&& event.key.keysym.sym == keycode) {
 							try {
-								evMap.second.keyName = SDL_GetKeyName(keycode);
 								_eventFuncMapper.at(evMap.second.type)(evMap.second);
 							} catch (const std::out_of_range&){
 								return evMap.second;
 							}
 						}
+					}
+
+					if (event.type == SDL_TEXTINPUT) {
+						NEvent ev;
+
+						ev.text = event.text.text;
+						ev.type = text;
+						return ev;
 					}
 				}
 			}

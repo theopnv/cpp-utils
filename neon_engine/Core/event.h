@@ -26,8 +26,11 @@ namespace neon_engine
 		tab					= 0x15,
 		enter				= 0x16,
 		space				= 0x17,
+		backspace			= 0x18,
 
 		mouse_click			= 0x20,
+
+		text				= 0x30,
 	};
 
 	/**
@@ -47,17 +50,16 @@ namespace neon_engine
 		Vector2<int>	pos;
 
 		/**
-		 * \brief Name of the key if relevant (e.g. "A" for SDLK_A)
-		 * Empty string if it is not relevant.
+		 * \brief Chunk of text if SDL_TEXTINPUT was raised
 		 */
-		std::string		keyName;
+		std::string		text;
 
 		~NEvent() = default;
 		explicit NEvent(
 			NEventType t = undefined, 
 			Vector2<int> p = Vector2<int>({-1, -1}),
-			std::string kn = "") : 
-			type(t), pos(p), keyName(kn)
+			std::string txt = "") : 
+			type(t), pos(p), text(txt)
 		{}
 	};
 
