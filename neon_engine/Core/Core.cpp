@@ -19,7 +19,20 @@ namespace neon_engine
 			draw();
 
 			SDL_RenderPresent(_renderer.get());
-			
+
+			// Clean old states flagged for deletion
+			if (_popState) {
+				if (_states.size() >= 2) {
+					const auto currentState = _states.top();
+					_states.pop();
+
+					_states.top()->cleanup();
+					_states.pop();
+
+					_states.push(currentState);
+				}
+				_popState = false;
+			}
 		}
 
 		stop();

@@ -13,7 +13,8 @@ namespace neon_engine
 		const Vector2<int> logicalWinSize) :
 		_title(winTitle),
 		_winSize(winSize),
-		_logicalWinSize(logicalWinSize)
+		_logicalWinSize(logicalWinSize),
+		_popState(false)
 	{
 	}
 

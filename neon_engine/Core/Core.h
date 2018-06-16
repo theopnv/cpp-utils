@@ -155,6 +155,8 @@ namespace neon_engine
 		 * Call cleanup on all registered states.
 		 */
 		void	cleanupStates();
+
+		bool	_popState;
 	};
 
 }

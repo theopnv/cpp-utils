@@ -16,10 +16,7 @@ namespace neon_engine
 
 	void Core::changeState(const Sptr<IGameState>& state)
 	{
-		if (!_states.empty()) {
-			_states.top()->cleanup();
-			_states.pop();
-		}
+		_popState = true;
 
 		_states.push(state);
 		_states.top()->start(shared_from_this());
@@ -27,9 +24,7 @@ namespace neon_engine
 
 	void Core::pushState(const Sptr<IGameState>& state)
 	{
-		if (!_states.empty()) {
-			_states.top()->pause();
-		}
+		_popState = true;
 
 		_states.push(state);
 		_states.top()->start(shared_from_this());
@@ -37,10 +32,7 @@ namespace neon_engine
 
 	void Core::popState()
 	{
-		if (!_states.empty()) {
-			_states.top()->cleanup();
-			_states.pop();
-		}
+		_popState = true;
 
 		if (!_states.empty()) {
 			_states.top()->resume();
@@ -49,11 +41,15 @@ namespace neon_engine
 
 	void Core::update(NEvent& event)
 	{
-		_states.top()->update(event);
+		if (!_states.empty()) {
+			_states.top()->update(event);
+		}
 	}
 
 	void Core::draw()
 	{
-		_states.top()->draw();
+		if (!_states.empty()) {
+			_states.top()->draw();
+		}
 	}
 }
