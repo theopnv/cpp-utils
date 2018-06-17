@@ -41,6 +41,12 @@ namespace neon_engine
 		 */
 		std::string		getInput() const;
 
+		/**
+		 * \brief Set the text to render in this control
+		 * \param input the text to render in this control
+		 */
+		void			setInput(const std::string& input);
+
 	private:
 		RendererSptr	_renderer;
 

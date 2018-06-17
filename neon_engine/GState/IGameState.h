@@ -22,17 +22,6 @@ namespace neon_engine
 		public:
 
 			/**
-			 * \brief First method to be called when a new state is pushed.
-			 * Be careful, the constructor of the state is called when instanciating it,
-			 * and not when really using it. Initialization logic can therefore happen here.
-			 * 
-			 * A pointer to the game engine class is available if the state 
-			 * needs to access low-level tools, like the renderer.
-			 * \param ge The game engine class
-			 */
-			virtual void	start(Sptr<Core>& ge) = 0;
-
-			/**
 			 * \brief Destruction and cleanup of the state must happen here
 			 */
 			virtual void	cleanup() = 0;

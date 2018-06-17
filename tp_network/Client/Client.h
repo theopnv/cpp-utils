@@ -40,8 +40,10 @@ namespace tp_network
 		/**
 		 * \brief Start the client. Try to connect to ip:port.
 		 */
-		void run()
+		void run(const std::string& ip, int port)
 		{
+			_ip = ip;
+			_port = port;
 			try {
 				tcp::resolver resolver(_ioService);
 				const auto endpointIterator = resolver.resolve(_ip, std::to_string(_port));
@@ -64,6 +66,11 @@ namespace tp_network
 		bool send(std::string& packet)
 		{
 			return _client.write(packet);
+		}
+
+		void stop()
+		{
+			_ioService.stop();
 		}
 
 	  private:

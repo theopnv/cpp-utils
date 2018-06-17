@@ -19,7 +19,6 @@ namespace neon_engine
 		_popState = true;
 
 		_states.push(state);
-		_states.top()->start(shared_from_this());
 	}
 
 	void Core::pushState(const Sptr<IGameState>& state)
@@ -27,7 +26,6 @@ namespace neon_engine
 		_popState = true;
 
 		_states.push(state);
-		_states.top()->start(shared_from_this());
 	}
 
 	void Core::popState()

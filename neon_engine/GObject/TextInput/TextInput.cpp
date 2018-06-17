@@ -32,6 +32,11 @@ namespace neon_engine
 		return _input;
 	}
 
+	void TextInput::setInput(const std::string& input)
+	{
+		_input = input;
+	}
+
 	void	TextInput::update(NEvent& event)
 	{
 		// Focus
@@ -61,19 +66,19 @@ namespace neon_engine
 			if (!event.text.empty()) {
 				_input += event.text;
 			}
+		}
 
-			if (!_input.empty())
-			{
-				const auto textCoord = Vector4<int>(_coord.pos.x() + 10, _coord.pos.y() + 12);
-				_text = Text(_renderer,
-					_font,
-					_coord.size.h(),
-					_textColor,
-					_input,
-					Text::left,
-					textCoord
-				);
-			}
+		if (!_input.empty())
+		{
+			const auto textCoord = Vector4<int>(_coord.pos.x() + 10, _coord.pos.y() + 12);
+			_text = Text(_renderer,
+				_font,
+				_coord.size.h(),
+				_textColor,
+				_input,
+				Text::left,
+				textCoord
+			);
 		}
 	}
 

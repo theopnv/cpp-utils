@@ -105,6 +105,7 @@ namespace tp_network
 			asio::async_connect(_socket, endpointIterator,
 				[this](const std::error_code ec, tcp::resolver::iterator)
 				{
+				std::cout << "Connection successful." << std::endl;
 					if (!ec) {
 						doReadHeader();
 				}
