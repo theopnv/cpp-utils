@@ -13,6 +13,7 @@ namespace neon_engine
 		const std::string& text,
 		const Alignement align,
 		const Vector4<int>& coord,
+		const int widthIfWrapped,
 		const bool isEnabled) :
 			AGObject(coord, isEnabled),
 			_alignement(align)
@@ -22,7 +23,8 @@ namespace neon_engine
 			font,
 			fontSize,
 			fontColor,
-			text);
+			text,
+			widthIfWrapped);
 
 		setSize(fontInfo.size);
 		_texture = fontInfo.texture;

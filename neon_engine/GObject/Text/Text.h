@@ -39,6 +39,7 @@ namespace neon_engine
 		 * \param text Text to display
 		 * \param align Alignement of the text
 		 * \param coord Coordinates of the text
+		 * \param widthIfWrapped If specified, wrap the text in width. Non-wrapping value is -1
 		 * \param isEnabled Active the game object
 		 */
 		Text(const RendererSptr& renderer,
@@ -48,6 +49,7 @@ namespace neon_engine
 			const std::string& text,
 			Alignement align,
 			const Vector4<int>& coord = { 0, 0, 0, 0 },
+			const int widthIfWrapped = -1,
 			bool isEnabled = true);
 		~Text() = default;
 

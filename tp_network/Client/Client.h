@@ -22,16 +22,10 @@ namespace tp_network
 	  public:
 
 		/**
-		 * \brief 
-		 * \param ip The IP address the client must connect to
-		 * \param port The port the client must connect to
+		 * \brief Constructor
 		 * \param newPacketReadCallback Will be called when a new pakcet is received
 		 */
-		Client(const std::string& ip,
-			   unsigned short port,
-		       const Event<void (const std::string&)>& newPacketReadCallback) :
-			_ip(ip),
-			_port(port),
+		Client(const Event<void (const std::string&)>& newPacketReadCallback) :
 			_newPacketReadCallback(newPacketReadCallback),
 			_client(_ioService, newPacketReadCallback)
 		{
@@ -39,8 +33,11 @@ namespace tp_network
 
 		/**
 		 * \brief Start the client. Try to connect to ip:port.
+		 * \param ip The ip address the client must connect to
+		 * \param port The port the client must connect to
+		 * \param result Result of the connection operation
 		 */
-		void run(const std::string& ip, int port)
+		void run(const std::string& ip, int port, std::promise<OperationResult>& result)
 		{
 			_ip = ip;
 			_port = port;
@@ -49,7 +46,7 @@ namespace tp_network
 				const auto endpointIterator = resolver.resolve(_ip, std::to_string(_port));
 
 				_client.setEndpointIterator(endpointIterator);
-				_client.start();
+				_client.start(result);
 
 				_ioService.run();
 

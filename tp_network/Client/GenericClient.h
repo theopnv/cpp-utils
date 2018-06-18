@@ -37,9 +37,9 @@ namespace tp_network
 			close();
 		}
 
-		void start()
+		void start(std::promise<OperationResult>& result)
 		{
-			doConnect(_endpointIterator);
+			doConnect(_endpointIterator, result);
 		}
 
 		bool write(std::string& packet)
@@ -61,9 +61,9 @@ namespace tp_network
 
 				Message body(packet.substr(idx, Message::max_body_length));
 
-				auto writeInProgress = !_writeQueue.empty();
+				const auto wip = !_writeQueue.empty();
 				_writeQueue.emplace_back(body);
-				if (!writeInProgress) {
+				if (!wip) {
 					doWrite();
 				}
 
@@ -100,42 +100,62 @@ namespace tp_network
 		MessageQueue		_writeQueue;
 		Event<void (const std::string&)>	_newMessageReadCallback;
 
-		void doConnect(tcp::resolver::iterator endpointIterator)
+		void doConnect(const tcp::resolver::iterator& endpointIterator, std::promise<OperationResult>& result)
 		{
-			asio::async_connect(_socket, endpointIterator,
-				[this](const std::error_code ec, tcp::resolver::iterator)
+			async_connect(_socket, endpointIterator,
+				[&](const std::error_code ec, tcp::resolver::iterator it)
 				{
-				std::cout << "Connection successful." << std::endl;
-					if (!ec) {
-						doReadHeader();
+					if (ec)
+					{
+						std::cerr << ec.message() << std::endl;
+						result.set_value(OperationResult(ec.message(), false));
+						return;
+					}
+
+					std::cout << "Connection successful." << std::endl;
+					result.set_value({ "Connection successful." });
+					doReadHeader();
 				}
-			});
+			);
 		}
 
 		void doReadHeader()
 		{
-			asio::async_read(_socket,
+			async_read(_socket,
 				asio::buffer(_currentMessage.getData(), Message::header_length),
 				[this](const std::error_code ec, std::size_t /*length*/)
-			{
-				if (!ec && _currentMessage.decodeHeader()) {
-					doReadBody();
+				{
+					if (ec)
+					{
+						std::cerr << ec.message() << std::endl;
+						close();
+						return;
+					}
+					
+					if (_currentMessage.decodeHeader()) {
+						doReadBody();
+					}
+					else {
+						close();
+					}
 				}
-				else {
-					close();
-				}
-			});
+			);
 		}
 
 		void doReadBody()
 		{
-			asio::async_read(_socket,
+			async_read(_socket,
 				asio::buffer(_currentMessage.getBody(), _currentMessage.getSizeHeaderInfo()),
 				[this](const std::error_code ec, std::size_t /* length */)
-			{
-				if (!ec) {
+				{
+					if (ec)
+					{
+						std::cerr << ec.message() << std::endl;
+						return;
+					}
+
 					if (_currentMessage.getTypeHeaderInfo() == Message::header) {
-						_packetBuild = PacketBuild(std::atoi(_currentMessage.getBody()));
+						_packetBuild = PacketBuild(std::stoi(_currentMessage.getBody()));
 					}
 					else {
 						_packetBuild._data += _currentMessage.getBody();
@@ -149,7 +169,7 @@ namespace tp_network
 
 					doReadHeader();
 				}
-			});
+			);
 		}
 
 		void doWrite()
@@ -158,17 +178,18 @@ namespace tp_network
 			asio::async_write(_socket,
 				asio::buffer(_writeQueue.front().getData(), msgSize),
 				[this](const std::error_code ec, std::size_t /* length */)
-			{
-				if (!ec) {
-					_writeQueue.pop_front();
-					if (!_writeQueue.empty()) {
-						doWrite();
+				{
+					if (!ec) {
+						_writeQueue.pop_front();
+						if (!_writeQueue.empty()) {
+							doWrite();
+						}
+					}
+					else {
+						close();
 					}
 				}
-				else {
-					close();
-				}
-			});
+			);
 		}
 
 	};

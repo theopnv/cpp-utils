@@ -51,7 +51,8 @@ namespace neon_engine
 			const std::string& font,
 			const int size,
 			const Color color,
-			const std::string& text)
+			const std::string& text,
+			const int widthIfWrapped = -1)
 		{
 			TTF_Font	*font_ = TTF_OpenFont(font.c_str(), size);
 			if (!font_) {
@@ -60,7 +61,20 @@ namespace neon_engine
 
 			const auto colorLevel = GameColors.at(color);
 			SDL_Color	color_ = { colorLevel.r, colorLevel.g, colorLevel.b, colorLevel.a };
-			SDL_Surface	*surface = TTF_RenderText_Solid(font_, text.c_str(), color_);
+
+			SDL_Surface *surface = nullptr;
+			if (widthIfWrapped != -1)
+			{
+				surface = TTF_RenderText_Blended_Wrapped(
+					font_,
+					text.c_str(),
+					color_,
+					widthIfWrapped);
+			} else
+			{
+				surface = TTF_RenderText_Solid(font_, text.c_str(), color_);
+			}
+			
 			if (!surface) {
 				throw NeonException("Can' create a sprite for font: " + font + ". " + TTF_GetError());
 			}

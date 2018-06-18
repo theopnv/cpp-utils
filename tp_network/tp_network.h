@@ -24,4 +24,14 @@ namespace tp_network
 	template <class T>
 	using Sptr = std::shared_ptr<T>;
 
+	struct OperationResult
+	{
+		std::string		message;
+		bool			success;
+
+		OperationResult(const std::string& msg, bool s = true) :
+			message(msg), success(s)
+		{}
+		OperationResult() = default;
+	};
 }
