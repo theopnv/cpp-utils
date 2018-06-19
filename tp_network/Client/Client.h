@@ -52,6 +52,7 @@ namespace tp_network
 
 			} catch (std::exception& e) {
 				std::cerr << e.what() << std::endl;
+				result.set_value(OperationResult(e.what(), false));
 			}
 		}
 

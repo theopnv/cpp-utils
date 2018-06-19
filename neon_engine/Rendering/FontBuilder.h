@@ -56,7 +56,7 @@ namespace neon_engine
 		{
 			TTF_Font	*font_ = TTF_OpenFont(font.c_str(), size);
 			if (!font_) {
-				throw NeonException("Can' load the following font: " + font);
+				throw NeonException("Can't load the following font: " + font);
 			}
 
 			const auto colorLevel = GameColors.at(color);

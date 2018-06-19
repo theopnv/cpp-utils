@@ -51,6 +51,7 @@ namespace neon_engine
 		RendererSptr	_renderer;
 
 		std::string		_input;
+		std::string		_previousInput;
 
 		Image			_currentBg;
 		Image			_focusBg;

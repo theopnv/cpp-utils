@@ -68,7 +68,7 @@ namespace neon_engine
 			}
 		}
 
-		if (!_input.empty())
+		if (!_input.empty() && _input != _previousInput)
 		{
 			const auto textCoord = Vector4<int>(_coord.pos.x() + 10, _coord.pos.y() + 12);
 			_text = Text(_renderer,
@@ -79,6 +79,8 @@ namespace neon_engine
 				Text::left,
 				textCoord
 			);
+
+			_previousInput = _input; // Save value for future comparison with _input (Avoid re-creating a Text() if it's the same)
 		}
 	}
 
