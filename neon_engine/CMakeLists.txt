@@ -17,6 +17,7 @@ set(CORE Core)
 set(GAMESTATE GState)
 set(GOBJECT GObject)
 set(RENDERING Rendering)
+set(ECS Ecs)
 
 set(INCLUDE_DIRS
 	.
@@ -33,6 +34,11 @@ set(INCLUDE_DIRS
 	${GOBJECT}/Text
 	${GOBJECT}/TextInput
 	${RENDERING}
+
+	${ECS}
+	${ECS}/Component
+	${ECS}/Entity
+	${ECS}/System
 )
 
 set(SRC
@@ -66,7 +72,13 @@ set(SRC
 	${GOBJECT}/TextInput/TextInput.h
 	${GOBJECT}/TextInput/TextInput.cpp
 
-
+	${ECS}/Component/AComponent.h
+	${ECS}/Component/ComponentException.h
+	${ECS}/Component/ComponentTypeManager.h
+	${ECS}/Entity/Entity.h
+	${ECS}/Entity/Entity.cpp
+	${ECS}/System/ASystem.h
+	${ECS}/System/ASystem.cpp
 )
 
 if (UNIX)
@@ -91,4 +103,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 	
 target_link_libraries(${PROJECT_NAME}
+	tp_singleton
 )
