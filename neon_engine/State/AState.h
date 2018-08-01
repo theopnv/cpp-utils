@@ -1,8 +1,8 @@
 //  Created by Theo Penavaire on 06/09/2018
 //  Last Update on 06/09/2018 
 
-#include "IGameState.h"
-#include "IGObject.h"
+#include "IState.h"
+#include "IUIObject.h"
 
 namespace neon_engine
 {

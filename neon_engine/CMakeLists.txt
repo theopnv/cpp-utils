@@ -14,8 +14,8 @@ message("${PROJECT_NAME} Output in ${CMAKE_OUTPUT_DIR}")
 
 ### Sources ###
 set(CORE Core)
-set(GAMESTATE GState)
-set(GOBJECT GObject)
+set(STATE State)
+set(UIOBJECT UI)
 set(RENDERING Rendering)
 set(ECS Ecs)
 
@@ -27,12 +27,12 @@ set(INCLUDE_DIRS
 	Libraries/SDL_TTF/include
 	
 	${CORE}
-	${GAMESTATE}
-	${GOBJECT}
-	${GOBJECT}/Button
-	${GOBJECT}/Image
-	${GOBJECT}/Text
-	${GOBJECT}/TextInput
+	${STATE}
+	${UIOBJECT}
+	${UIOBJECT}/Button
+	${UIOBJECT}/Image
+	${UIOBJECT}/Text
+	${UIOBJECT}/TextInput
 	${RENDERING}
 
 	${ECS}
@@ -53,24 +53,24 @@ set(SRC
 	${CORE}/Core.h
 	${CORE}/NeonException.h
 	
-	${GAMESTATE}/IGameState.h
-	${GAMESTATE}/AGameState.h
+	${STATE}/IState.h
+	${STATE}/AState.h
 	
 	${RENDERING}/Vector.h
 	${RENDERING}/Color.h
 	${RENDERING}/FontBuilder.h
 
-	${GOBJECT}/IGObject.h
-	${GOBJECT}/AGObject.h
+	${UIOBJECT}/IUIObject.h
+	${UIOBJECT}/AUIObject.h
 
-	${GOBJECT}/Button/Button.h
-	${GOBJECT}/Button/Button.cpp
-	${GOBJECT}/Image/Image.h
-	${GOBJECT}/Image/Image.cpp
-	${GOBJECT}/Text/Text.h
-	${GOBJECT}/Text/Text.cpp
-	${GOBJECT}/TextInput/TextInput.h
-	${GOBJECT}/TextInput/TextInput.cpp
+	${UIOBJECT}/Button/Button.h
+	${UIOBJECT}/Button/Button.cpp
+	${UIOBJECT}/Image/Image.h
+	${UIOBJECT}/Image/Image.cpp
+	${UIOBJECT}/Text/Text.h
+	${UIOBJECT}/Text/Text.cpp
+	${UIOBJECT}/TextInput/TextInput.h
+	${UIOBJECT}/TextInput/TextInput.cpp
 
 	${ECS}/Component/AComponent.h
 	${ECS}/Component/ComponentException.h

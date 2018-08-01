@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "IGObject.h"
+#include "IUIObject.h"
 #include "Vector.h"
 
 namespace neon_engine

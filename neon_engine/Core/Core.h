@@ -18,7 +18,7 @@
 
 // neon_engine
 #include "neon_engine.h"
-#include "IGameState.h"
+#include "IState.h"
 #include "SdlPointer.h"
 #include "NeonException.h"
 #include "event.h"
