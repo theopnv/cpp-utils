@@ -27,7 +27,7 @@
 namespace neon_engine
 {
 
-	class IGameState;
+	class IState;
 
 	/**
 	 * \brief Main class of the game engine
@@ -76,13 +76,13 @@ namespace neon_engine
 		 * \brief Change the state
 		 * \param state new state
 		 */
-		void	changeState(const Sptr<IGameState>& state);
+		void	changeState(const Sptr<IState>& state);
 
 		/**
 		 * \brief Will pause the current state and change to a new one
 		 * \param state new state
 		 */
-		void	pushState(const Sptr<IGameState>& state);
+		void	pushState(const Sptr<IState>& state);
 		
 		/**
 		 * \brief Will cleanup the current state, and resume the older one if present
@@ -120,7 +120,7 @@ namespace neon_engine
 		Vector2<int>		_winSize;
 		Vector2<int>		_logicalWinSize;
 
-		std::stack<Sptr<IGameState>>	_states;
+		std::stack<Sptr<IState>>	_states;
 		NEventFuncMapper				_eventFuncMapper;
 		NEventMapper					_eventMapper;
 

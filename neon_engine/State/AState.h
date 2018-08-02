@@ -7,17 +7,17 @@
 namespace neon_engine
 {
 	
-	class AGameState : public IGameState
+	class AState : public IState
 	{
 		
 	public:
-		virtual ~AGameState() = default;
+		virtual ~AState() = default;
 
 	protected:
-		Sptr<Core>		_ge;
+		Sptr<Core>						_ge;
 
-		std::vector<Sptr<IGObject>>	_gameObjects;
-		NEventFuncMapper			_eventFuncMapper;
+		std::vector<Sptr<IUIObject>>	_gameObjects;
+		NEventFuncMapper				_eventFuncMapper;
 
 		virtual void setEventFuncMapper() = 0;
 	};

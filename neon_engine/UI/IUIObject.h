@@ -12,11 +12,11 @@ namespace neon_engine
 	/**
 	 * \brief Base class for every object managed by the graphical library (SDL2)
 	 */
-	class IGObject
+	class IUIObject
 	{
 
 	public:
-		virtual			~IGObject() = default;
+		virtual			~IUIObject() = default;
 
 		/**
 		 * \brief Update state of the game object relatively to events

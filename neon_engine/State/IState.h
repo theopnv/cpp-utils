@@ -16,7 +16,7 @@ namespace neon_engine
 	 * It handles its rendering, and its events.
 	 * It is very useful to implement different logic for menus, games...
 	 */
-	class IGameState
+	class IState
 	{
 		
 		public:
@@ -53,10 +53,10 @@ namespace neon_engine
 			 * \brief Give the order to the game engine to change state
 			 * \param state the new state
 			 */
-			virtual void	changeState(Sptr<IGameState> state) = 0;
+			virtual void	changeState(Sptr<IState> state) = 0;
 
 		protected:
-			virtual ~IGameState() = default;
+			virtual ~IState() = default;
 	};
 
 }

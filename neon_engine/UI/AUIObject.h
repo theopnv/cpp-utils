@@ -12,7 +12,7 @@ namespace neon_engine
 	/**
 	 * \brief Abstract class for GameObject
 	 */
-	class AGObject : public IGObject
+	class AGObject : public IUIObject
 	{
 
 	public:

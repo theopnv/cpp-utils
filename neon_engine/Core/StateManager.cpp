@@ -14,14 +14,14 @@ namespace neon_engine
 		}
 	}
 
-	void Core::changeState(const Sptr<IGameState>& state)
+	void Core::changeState(const Sptr<IState>& state)
 	{
 		_popState = true;
 
 		_states.push(state);
 	}
 
-	void Core::pushState(const Sptr<IGameState>& state)
+	void Core::pushState(const Sptr<IState>& state)
 	{
 		_popState = true;
 
