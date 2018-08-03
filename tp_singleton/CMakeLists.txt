@@ -10,9 +10,6 @@ include_directories(
 	${IncludeDir}
 )
 
-set(Headers
-	singleton.h)
-
 if (UNIX)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra - pthread")
 endif()

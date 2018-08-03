@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include "neon_engine.h"
+#include "tp_ecs.h"
 
-namespace neon_engine::ecs
+namespace tp_ecs
 {
 	class Entity;
 

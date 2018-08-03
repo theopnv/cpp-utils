@@ -23,7 +23,7 @@ namespace tp_network
 
 		/**
 		 * \brief Constructor
-		 * \param newPacketReadCallback Will be called when a new pakcet is received
+		 * \param newPacketReadCallback Will be called when a new packet is received
 		 */
 		Client(const Event<void (const std::string&)>& newPacketReadCallback) :
 			_newPacketReadCallback(newPacketReadCallback),

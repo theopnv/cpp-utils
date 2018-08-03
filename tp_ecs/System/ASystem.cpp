@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "ASystem.h"
 
-namespace neon_engine::ecs
+namespace tp_ecs
 {
 
 	void ASystem::update()

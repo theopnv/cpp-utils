@@ -2,7 +2,7 @@
 
 #include "Entity.h"
 
-namespace neon_engine::ecs
+namespace tp_ecs
 {
 
 	class ASystem

@@ -1,8 +1,9 @@
 #pragma once
+
 #include <exception>
 #include <string>
 
-namespace neon_engine::ecs
+namespace tp_ecs
 {
 	
 	class ComponentNotFoundException : public std::exception

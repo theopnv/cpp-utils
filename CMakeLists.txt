@@ -6,6 +6,7 @@ add_subdirectory(tp_network)
 add_subdirectory(tp_rloader)
 add_subdirectory(tp_serializer)
 add_subdirectory(tp_singleton)
+add_subdirectory(tp_ecs)
 add_subdirectory(neon_engine)
 
 if(WIN32)

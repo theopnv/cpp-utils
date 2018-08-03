@@ -81,7 +81,7 @@ namespace tp_network
 
 	  private:
 
-		Event<void (const std::string&)>	_newConnectionCallbackExternal;
+		Event<void (const std::string&)>						_newConnectionCallbackExternal;
 		Event<void (const std::string&, const std::string&)>	_newMessageReadCallback;
 		unsigned short						_port;
 		std::map<std::string, SessionSP>	_clients;

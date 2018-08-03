@@ -17,7 +17,6 @@ set(CORE Core)
 set(STATE State)
 set(UIOBJECT UI)
 set(RENDERING Rendering)
-set(ECS Ecs)
 
 set(INCLUDE_DIRS
 	.
@@ -35,10 +34,6 @@ set(INCLUDE_DIRS
 	${UIOBJECT}/TextInput
 	${RENDERING}
 
-	${ECS}
-	${ECS}/Component
-	${ECS}/Entity
-	${ECS}/System
 )
 
 set(SRC
@@ -71,14 +66,6 @@ set(SRC
 	${UIOBJECT}/Text/Text.cpp
 	${UIOBJECT}/TextInput/TextInput.h
 	${UIOBJECT}/TextInput/TextInput.cpp
-
-	${ECS}/Component/AComponent.h
-	${ECS}/Component/ComponentException.h
-	${ECS}/Component/ComponentTypeManager.h
-	${ECS}/Entity/Entity.h
-	${ECS}/Entity/Entity.cpp
-	${ECS}/System/ASystem.h
-	${ECS}/System/ASystem.cpp
 )
 
 if (UNIX)
@@ -103,5 +90,4 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 	
 target_link_libraries(${PROJECT_NAME}
-	tp_singleton
 )

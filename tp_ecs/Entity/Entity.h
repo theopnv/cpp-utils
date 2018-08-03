@@ -6,11 +6,10 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "neon_engine.h"
 #include "AComponent.h"
 #include "ComponentException.h"
 
-namespace neon_engine::ecs
+namespace tp_ecs
 {
 	
 	using ComponentMap = std::map<const std::string, Sptr<AComponent>>;

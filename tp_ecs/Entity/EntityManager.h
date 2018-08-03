@@ -3,8 +3,7 @@
 #include "Singleton.h"
 #include "Entity.h"
 
-namespace neon_engine::ecs
-{
+namespace tp_ecs
 	
 	class EntityManager : public tp_singleton::Singleton<EntityManager>
 	{

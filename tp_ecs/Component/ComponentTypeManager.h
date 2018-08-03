@@ -1,6 +1,6 @@
 #pragma once
 
-namespace neon_engine::ecs
+namespace tp_ecs
 {
 
 	using Id = std::size_t;
